@@ -194,17 +194,6 @@
   .nav-brand-link:hover{ background:var(--brand-dim); transform:translateX(2px); }
 
   .rail-bottom{display:flex; flex-direction:column; gap:16px; margin-top:40px;}
-  .rail-lang{
-    display:flex; background:var(--surface); border:1px solid var(--line);
-    border-radius:24px; overflow:hidden; align-self:flex-start;
-    font-family:'JetBrains Mono', monospace; font-size:0.7rem;
-    opacity:0; animation:fadeUp .7s ease .2s forwards;
-  }
-  .rail-lang button{
-    background:transparent; border:none; color:var(--text-dim); padding:7px 14px; font-weight:500;
-    transition:all .2s;
-  }
-  .rail-lang button.active{background:linear-gradient(135deg, var(--brand), #059669); color:#fff; font-weight:600;}
   .rail-cta{
     display:flex; align-items:center; justify-content:center; gap:8px;
     background:linear-gradient(135deg, var(--brand), #059669); color:#fff;
@@ -236,13 +225,6 @@
   .mb-brand{display:flex; align-items:center; gap:8px; font-family:'Outfit',sans-serif; font-weight:700; font-size:1.05rem;}
   .mb-brand img{height:26px; width:auto; display:block; border-radius:6px;}
   .mb-right{display:flex; align-items:center; gap:12px;}
-  .mb-lang{
-    display:flex; background:var(--surface); border:1px solid var(--line);
-    border-radius:20px; overflow:hidden; font-family:'JetBrains Mono', monospace; font-size:0.68rem;
-    opacity:0; animation:fadeUp .7s ease .15s forwards;
-  }
-  .mb-lang button{background:transparent; border:none; color:var(--text-dim); padding:7px 12px; font-weight:500; transition:all .2s;}
-  .mb-lang button.active{background:linear-gradient(135deg, var(--brand), #059669); color:#fff; font-weight:600;}
   .nav-burger{
     background:var(--surface); border:1px solid var(--line); border-radius:10px;
     width:38px; height:38px; display:flex; align-items:center; justify-content:center;
@@ -589,6 +571,28 @@
   }
   .wa-float svg{flex-shrink:0;}
 
+  /* ---------------- Floating language toggle (mirrors WA float) ---------------- */
+  .lang-float{
+    position:fixed; z-index:60;
+    top:calc(24px + env(safe-area-inset-top));
+    left:calc(24px + env(safe-area-inset-left));
+    display:flex; align-items:center; gap:6px;
+    background:var(--surface); border:1px solid var(--line-strong);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    border-radius:30px; padding:5px;
+    box-shadow:0 8px 28px rgba(0,0,0,0.4);
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    opacity:0; animation:fadeUp .9s ease .75s forwards;
+    transition:box-shadow .3s ease, transform .3s ease;
+  }
+  .lang-float:hover{box-shadow:0 12px 36px rgba(16,185,129,0.22); transform:translateY(-3px);}
+  .lang-float-icon{margin-left:9px; color:var(--text-dim); flex-shrink:0;}
+  .lang-float button{
+    background:transparent; border:none; color:var(--text-dim); padding:9px 14px; border-radius:22px;
+    font-weight:600; font-family:inherit; font-size:inherit; transition:all .2s;
+  }
+  .lang-float button.active{background:linear-gradient(135deg, var(--brand), #059669); color:#fff;}
+
   /* Scroll reveal */
   .reveal{opacity:0; transform:translateY(40px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);}
   .reveal.in-view{opacity:1; transform:translateY(0);}
@@ -623,6 +627,12 @@
       padding:14px; border-radius:50%;
       top:calc(88px + env(safe-area-inset-top));
     }
+    .lang-float{
+      top:calc(88px + env(safe-area-inset-top));
+      font-size:0.72rem;
+    }
+    .lang-float-icon{display:none;}
+    .lang-float button{padding:8px 11px;}
     footer{padding-bottom:calc(32px + env(safe-area-inset-bottom));}
     .buildlog-body{flex-direction:column; gap:9px; min-height:216px; contain:layout;}
   }
@@ -650,10 +660,6 @@
 <!-- ===== Persistent left nav (desktop) ===== -->
 <aside class="side-rail" aria-label="Primary">
   <div class="rail-brand"><img src="log.png" alt="CloudeBase"><span>CloudeBase</span></div>
-  <div class="rail-lang">
-    <button type="button" id="btnEnRail" class="active" onclick="setLang('en')">EN</button>
-    <button type="button" id="btnSiRail" onclick="setLang('si')">සිං</button>
-  </div>
   <nav class="rail-nav">
     <a href="#hero" class="nav-links-item nav-brand-link"><span class="nav-brand-glow"></span>CloudeBase</a>
     <a href="#services" class="nav-links-item" data-i18n="nav-services">Services</a>
@@ -674,10 +680,6 @@
   <div class="mobile-bar-inner">
     <div class="mb-brand"><img src="log.png" alt="CloudeBase"><span>CloudeBase</span></div>
     <div class="mb-right">
-      <div class="mb-lang">
-        <button type="button" id="btnEn" class="active" onclick="setLang('en')">EN</button>
-        <button type="button" id="btnSi" onclick="setLang('si')">සිං</button>
-      </div>
       <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
       </button>
@@ -847,6 +849,13 @@
   <span>WhatsApp</span>
 </a>
 
+<div class="lang-float" id="langFloat" role="group" aria-label="Language">
+  <svg class="lang-float-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+  <button type="button" id="btnEnFloat" class="active" onclick="setLang('en')" aria-label="English">EN</button>
+  <button type="button" id="btnSiFloat" onclick="setLang('si')" aria-label="සිංහල">සිං</button>
+</div>
+
+
 <script>
 const translations = {
 'nav-services':{en:'Services',si:'සේවාවන්'},
@@ -906,10 +915,8 @@ if(entry) el.innerHTML=entry[lang];
 });
 document.getElementById('htmlRoot').setAttribute('lang',lang);
 document.body.classList.toggle('si',lang==='si');
-document.getElementById('btnEn').classList.toggle('active',lang==='en');
-document.getElementById('btnSi').classList.toggle('active',lang==='si');
-document.getElementById('btnEnRail').classList.toggle('active',lang==='en');
-document.getElementById('btnSiRail').classList.toggle('active',lang==='si');
+document.getElementById('btnEnFloat').classList.toggle('active',lang==='en');
+document.getElementById('btnSiFloat').classList.toggle('active',lang==='si');
 }
 
 // ---------- Build log typing effect ----------
