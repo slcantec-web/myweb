@@ -358,6 +358,7 @@
     overflow:hidden;
     box-shadow:0 24px 70px rgba(0,0,0,0.35);
     opacity:0; animation:fadeUp .9s ease .65s forwards;
+    contain:layout style;
   }
   .buildlog-bar{
     display:flex; align-items:center; gap:8px;
@@ -594,9 +595,14 @@
   @media (max-width:600px){
     .wrap{padding:0 20px;}
     .wa-float span{display:none;}
-    .wa-float{padding:14px; border-radius:50%;}
+    .wa-float{
+      padding:14px; border-radius:50%;
+      top:calc(78px + env(safe-area-inset-top));
+      right:calc(16px + env(safe-area-inset-right));
+      bottom:auto;
+    }
     footer{padding-bottom:calc(32px + env(safe-area-inset-bottom));}
-    .buildlog-body{flex-direction:column; gap:9px;}
+    .buildlog-body{flex-direction:column; gap:9px; min-height:216px; contain:layout;}
   }
   @media (prefers-reduced-motion: reduce){
     *, *::before, *::after{animation:none !important; transition:none !important;}
