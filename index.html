@@ -211,16 +211,13 @@
   }
   .mb-brand{display:flex; align-items:center; gap:8px; font-family:'Outfit',sans-serif; font-weight:700; font-size:1.05rem;}
   .mb-brand img{height:26px; width:auto; display:block; border-radius:6px;}
-  .mb-right{display:flex; align-items:center; gap:10px;}
+  .mb-right{display:flex; align-items:center; gap:12px;}
   .mb-lang{
-    display:flex; justify-content:center; background:var(--surface); border:1px solid var(--line);
-    border-radius:22px; overflow:hidden; font-family:'JetBrains Mono', monospace; font-size:0.74rem;
-    margin:6px 0 10px; width:100%;
+    display:flex; background:var(--surface); border:1px solid var(--line);
+    border-radius:20px; overflow:hidden; font-family:'JetBrains Mono', monospace; font-size:0.68rem;
+    opacity:0; animation:fadeUp .7s ease .15s forwards;
   }
-  .mb-lang button{
-    flex:1; background:transparent; border:none; color:var(--text-dim); padding:9px 11px; font-weight:500;
-    transition:all .2s;
-  }
+  .mb-lang button{background:transparent; border:none; color:var(--text-dim); padding:7px 12px; font-weight:500; transition:all .2s;}
   .mb-lang button.active{background:linear-gradient(135deg, var(--brand), #059669); color:#fff; font-weight:600;}
   .nav-burger{
     background:var(--surface); border:1px solid var(--line); border-radius:10px;
@@ -649,16 +646,16 @@
   <div class="mobile-bar-inner">
     <div class="mb-brand"><img src="log.png" alt="CloudeBase"><span>CloudeBase</span></div>
     <div class="mb-right">
+      <div class="mb-lang">
+        <button type="button" id="btnEn" class="active" onclick="setLang('en')">EN</button>
+        <button type="button" id="btnSi" onclick="setLang('si')">සිං</button>
+      </div>
       <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
       </button>
     </div>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <div class="mb-lang">
-      <button type="button" id="btnEn" class="active" onclick="setLang('en')">EN</button>
-      <button type="button" id="btnSi" onclick="setLang('si')">සිං</button>
-    </div>
     <a href="#services" data-i18n="nav-services">Services</a>
     <a href="#process" data-i18n="nav-process">Process</a>
     <a href="#contact" data-i18n="nav-contact">Contact</a>
