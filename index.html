@@ -518,6 +518,47 @@
   .chip:hover{border-color:var(--brand); color:var(--brand-bright); background:var(--surface-hi); transform:translateY(-2px);}
 
   /* ==================================================
+     INQUIRY FORM
+     ================================================== */
+  .inquiry-form{
+    display:flex; flex-direction:column; gap:16px;
+    max-width:520px; margin:0 auto;
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--radius); padding:32px;
+    -webkit-backdrop-filter:blur(20px); backdrop-filter:blur(20px);
+  }
+  .inquiry-field{display:flex; flex-direction:column; gap:6px; text-align:left;}
+  .inquiry-field label{
+    font-family:'JetBrains Mono', monospace; font-size:0.76rem;
+    color:var(--text-dim); letter-spacing:0.04em; text-transform:uppercase;
+  }
+  .inquiry-field input, .inquiry-field textarea{
+    background:var(--bg-3); border:1px solid var(--line-strong);
+    color:var(--text); font-family:'Inter', sans-serif; font-size:0.95rem;
+    padding:12px 14px; border-radius:10px; outline:none;
+    transition:border-color .25s ease;
+  }
+  .inquiry-field input:focus, .inquiry-field textarea:focus{border-color:var(--brand);}
+  .inquiry-field textarea{resize:vertical; min-height:90px;}
+  .inquiry-honeypot{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+  .inquiry-submit{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(135deg, var(--brand), #059669); color:#fff;
+    padding:14px 20px; border:none; border-radius:12px;
+    font-family:'Inter', sans-serif; font-weight:600; font-size:0.95rem;
+    cursor:pointer; transition:all .3s ease;
+  }
+  .inquiry-submit:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 8px 22px rgba(16,185,129,0.3);}
+  .inquiry-submit:disabled{opacity:0.55; cursor:not-allowed;}
+  .inquiry-status{
+    font-family:'JetBrains Mono', monospace; font-size:0.82rem;
+    padding:10px 14px; border-radius:10px; display:none;
+  }
+  .inquiry-status.show{display:block;}
+  .inquiry-status.ok{background:var(--brand-dim); color:var(--brand-bright);}
+  .inquiry-status.err{background:var(--accent-dim); color:var(--accent);}
+
+  /* ==================================================
      CONTACT — full-bleed band
      ================================================== */
   .contact-band{
@@ -667,6 +708,7 @@
     <a href="#hero" class="nav-links-item nav-brand-link"><span class="nav-brand-glow"></span>CloudeBase</a>
     <a href="#services" class="nav-links-item" data-i18n="nav-services">Services</a>
     <a href="#process" class="nav-links-item" data-i18n="nav-process">Process</a>
+    <a href="#inquiry" class="nav-links-item" data-i18n="nav-inquiry">Inquire</a>
     <a href="#contact" class="nav-links-item" data-i18n="nav-contact">Contact</a>
   </nav>
   <div class="rail-bottom">
@@ -691,6 +733,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#services" data-i18n="nav-services">Services</a>
     <a href="#process" data-i18n="nav-process">Process</a>
+    <a href="#inquiry" data-i18n="nav-inquiry">Inquire</a>
     <a href="#contact" data-i18n="nav-contact">Contact</a>
     <a class="mobile-menu-cta" href="https://wa.me/94771699636?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20web%20project." target="_blank" rel="noopener" data-i18n="nav-cta">Start a project</a>
   </div>
@@ -824,6 +867,40 @@
       </div>
     </section>
 
+    <section id="inquiry">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-tag" data-i18n="inquiry-tag">GET IN TOUCH</div>
+          <h2 data-i18n="inquiry-h2">Send an inquiry</h2>
+        </div>
+        <form class="inquiry-form reveal" id="inquiryForm">
+          <div class="inquiry-field">
+            <label for="inq-name" data-i18n="inquiry-name-label">Name</label>
+            <input id="inq-name" name="name" type="text" autocomplete="name" required maxlength="100">
+          </div>
+          <div class="inquiry-field">
+            <label for="inq-phone" data-i18n="inquiry-phone-label">Phone</label>
+            <input id="inq-phone" name="phone" type="tel" autocomplete="tel" placeholder="077 123 4567" required>
+          </div>
+          <div class="inquiry-field">
+            <label for="inq-email" data-i18n="inquiry-email-label">Email</label>
+            <input id="inq-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="inquiry-field">
+            <label for="inq-message" data-i18n="inquiry-message-label">What do you need?</label>
+            <textarea id="inq-message" name="message" required maxlength="500"></textarea>
+          </div>
+          <!-- honeypot: real users never see or fill this -->
+          <div class="inquiry-honeypot" aria-hidden="true">
+            <label for="inq-company">Company</label>
+            <input id="inq-company" name="company" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" class="inquiry-submit" id="inquirySubmitBtn" data-i18n="inquiry-submit">Send inquiry</button>
+          <div class="inquiry-status" id="inquiryStatus"></div>
+        </form>
+      </div>
+    </section>
+
     <section class="contact-band" id="contact">
       <div class="wrap">
         <h2 class="reveal" data-i18n="contact-h2">Have a project in mind?</h2>
@@ -863,6 +940,7 @@
 const translations = {
 'nav-services':{en:'Services',si:'සේවාවන්'},
 'nav-process':{en:'Process',si:'ක්‍රියාවලිය'},
+'nav-inquiry':{en:'Inquire',si:'විමසන්න'},
 'nav-contact':{en:'Contact',si:'සම්බන්ධ වන්න'},
 'nav-cta':{en:'Start a project',si:'ආරම්භ කරන්න'},
 'eyebrow':{en:'AVAILABLE FOR NEW PROJECTS',si:'නව ව්‍යාපෘති සඳහා විවෘතයි'},
@@ -904,6 +982,13 @@ si:'අප ක්ලවුඩ්-නේටිව් (Cloud-native) සංවර�
 'step4-p':{en:'Deployed on the cloud, tested, and handed over — with support after launch.',si:'ක්ලවුඩ් මත ක්‍රියාත්මක කර, පරික්ෂා කර, දියත් කිරීමෙන් පසු සහයෝගයද සහිතව ඔබ වෙත භාර දේ.'},
 'stack-tag':{en:'STACK',si:'තාක්ෂණික පදනම'},
 'stack-chip':{en:'Static &amp; server-rendered sites',si:'ස්ටැටික් සහ සර්වර්-රෙන්ඩර්ඩ් වෙබ් අඩවි'},
+'inquiry-tag':{en:'GET IN TOUCH',si:'සම්බන්ධ වන්න'},
+'inquiry-h2':{en:'Send an inquiry',si:'විමසීමක් එවන්න'},
+'inquiry-name-label':{en:'Name',si:'නම'},
+'inquiry-phone-label':{en:'Phone',si:'දුරකථන අංකය'},
+'inquiry-email-label':{en:'Email',si:'විද්‍යුත් තැපෑල'},
+'inquiry-message-label':{en:'What do you need?',si:'ඔබට අවශ්‍ය දේ කුමක්ද?'},
+'inquiry-submit':{en:'Send inquiry',si:'එවන්න'},
 'contact-h2':{en:'Have a project in mind?',si:'ඔබට අවශ්‍ය කුමක්ද?'},
 'contact-p':{en:"Send a message on WhatsApp with a short description of what you need — we'll reply with next steps.",si:'ඔබට අවශ්‍ය දේ පිළිබඳ කෙටි විස්තරයක් WhatsApp හරහා එවන්න — ඊළඟ පියවර සමඟ අපි ඔබට පිළිතුරු එවන්නෙමු.'},
 'contact-btn':{en:'Chat on WhatsApp',si:'WhatsApp ඔස්සේ කතා කරන්න'},
@@ -1023,6 +1108,54 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 }else{
 document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));
 }
+
+// ---------- Inquiry form submit ----------
+(function(){
+  var WORKER_URL = "https://sms-inquiry-worker.slcantec.workers.dev/submit";
+
+  var form = document.getElementById('inquiryForm');
+  var btn = document.getElementById('inquirySubmitBtn');
+  var status = document.getElementById('inquiryStatus');
+
+  function setStatus(ok, msg){
+    status.textContent = msg;
+    status.className = 'inquiry-status show ' + (ok ? 'ok' : 'err');
+  }
+
+  if (form) {
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        var payload = {
+          name: document.getElementById('inq-name').value.trim(),
+          phone: document.getElementById('inq-phone').value.trim(),
+          email: document.getElementById('inq-email').value.trim(),
+          message: document.getElementById('inq-message').value.trim(),
+          company: document.getElementById('inq-company').value // honeypot
+        };
+        var res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        var data = await res.json().catch(function(){ return {}; });
+        if (res.ok && data.ok) {
+          setStatus(true, "Sent! You'll get a text from us shortly.");
+          form.reset();
+        } else {
+          setStatus(false, data.error || 'Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        setStatus(false, 'Network error — please try again.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send inquiry';
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
