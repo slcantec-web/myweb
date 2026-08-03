@@ -27,6 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -895,6 +896,7 @@
             <label for="inq-company">Company</label>
             <input id="inq-company" name="company" type="text" tabindex="-1" autocomplete="off">
           </div>
+          <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY" data-theme="dark"></div>
           <button type="submit" class="inquiry-submit" id="inquirySubmitBtn" data-i18n="inquiry-submit">Send inquiry</button>
           <div class="inquiry-status" id="inquiryStatus"></div>
         </form>
@@ -1128,12 +1130,19 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));
       btn.disabled = true;
       btn.textContent = 'Sending…';
       try {
+        var tsInput = form.querySelector('input[name="cf-turnstile-response"]');
+        var turnstileToken = tsInput ? tsInput.value : '';
+        if (!turnstileToken) {
+          setStatus(false, 'Please complete the verification check.');
+          return;
+        }
         var payload = {
           name: document.getElementById('inq-name').value.trim(),
           phone: document.getElementById('inq-phone').value.trim(),
           email: document.getElementById('inq-email').value.trim(),
           message: document.getElementById('inq-message').value.trim(),
-          company: document.getElementById('inq-company').value // honeypot
+          company: document.getElementById('inq-company').value, // honeypot
+          turnstileToken: turnstileToken
         };
         var res = await fetch(WORKER_URL, {
           method: 'POST',
@@ -1152,6 +1161,7 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));
       } finally {
         btn.disabled = false;
         btn.textContent = 'Send inquiry';
+        if (window.turnstile) window.turnstile.reset();
       }
     });
   }
