@@ -234,13 +234,6 @@
       padding: 100px 40px;
     }
 
-    .section-title {
-      font-size: 48px;
-      font-weight: 800;
-      margin-bottom: 60px;
-      text-align: center;
-    }
-
     /* ===== ABOUT ===== */
     .about {
       max-width: 1200px;
@@ -249,6 +242,13 @@
       padding: 80px;
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 60px;
+      text-align: center;
     }
 
     .about-content {
@@ -289,55 +289,80 @@
       .about-image { height: 300px; }
     }
 
-    /* ===== PORTFOLIO (Horizontal Scroll) ===== */
+    /* ===== PORTFOLIO (Grid Layout) ===== */
     .portfolio {
-      padding: 100px 0;
-      background: white;
+      padding: 100px 40px;
+      background: var(--light);
     }
 
-    .portfolio-title {
+    .section-title {
       font-size: 48px;
       font-weight: 800;
-      margin-bottom: 80px;
-      padding: 0 40px;
+      margin-bottom: 60px;
       text-align: center;
     }
 
-    .portfolio-wrapper {
-      display: flex;
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 30px;
-      padding: 0 40px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .portfolio-wrapper::-webkit-scrollbar {
-      display: none;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .portfolio-card {
-      flex-shrink: 0;
-      width: 100vw;
-      height: 600px;
+      min-height: 300px;
       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      border-radius: 20px;
+      border-radius: 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 36px;
-      font-weight: 800;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .portfolio-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .portfolio-card:hover {
-      transform: scale(1.02);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .portfolio-card:hover::before {
+      opacity: 1;
+    }
+
+    .portfolio-card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .portfolio-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .portfolio-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0.95;
     }
 
     .portfolio-card.restaurant { background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%); }
@@ -346,6 +371,30 @@
     .portfolio-card.roms { background: linear-gradient(135deg, #f59f00 0%, #ffd93d 100%); }
     .portfolio-card.hosting { background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%); }
     .portfolio-card.portfolio { background: linear-gradient(135deg, #1d7874 0%, #51cf66 100%); }
+
+    @media (max-width: 768px) {
+      .portfolio {
+        padding: 60px 20px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .portfolio-card {
+        min-height: 250px;
+        padding: 20px;
+      }
+
+      .portfolio-card h3 {
+        font-size: 20px;
+      }
+
+      .portfolio-card p {
+        font-size: 13px;
+      }
+    }
 
     /* ===== SERVICES ===== */
     .services {
@@ -730,16 +779,46 @@
     </div>
   </section>
 
-  <!-- Portfolio (Horizontal Scroll) -->
+  <!-- Portfolio (Grid Layout) -->
   <section class="portfolio" id="portfolio">
-    <h2 class="portfolio-title">Our Work</h2>
-    <div class="portfolio-wrapper">
-      <div class="portfolio-card restaurant">Restaurant Management</div>
-      <div class="portfolio-card garment">Garment Inventory System</div>
-      <div class="portfolio-card billing">Billing & Invoicing</div>
-      <div class="portfolio-card roms">ROMS Dashboard</div>
-      <div class="portfolio-card hosting">Cloud Hosting Platform</div>
-      <div class="portfolio-card portfolio">Portfolio & Blog</div>
+    <h2 class="section-title">Our Work</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-card restaurant">
+        <div class="portfolio-card-content">
+          <h3>Restaurant Management</h3>
+          <p>Full-featured POS system with inventory and order tracking</p>
+        </div>
+      </div>
+      <div class="portfolio-card garment">
+        <div class="portfolio-card-content">
+          <h3>Garment Inventory System</h3>
+          <p>Real-time stock management and supplier tracking</p>
+        </div>
+      </div>
+      <div class="portfolio-card billing">
+        <div class="portfolio-card-content">
+          <h3>Billing & Invoicing</h3>
+          <p>Automated billing platform with payment integration</p>
+        </div>
+      </div>
+      <div class="portfolio-card roms">
+        <div class="portfolio-card-content">
+          <h3>ROMS Dashboard</h3>
+          <p>Real-time operations monitoring and reporting</p>
+        </div>
+      </div>
+      <div class="portfolio-card hosting">
+        <div class="portfolio-card-content">
+          <h3>Cloud Hosting Platform</h3>
+          <p>Scalable infrastructure on Cloudflare and Oracle Cloud</p>
+        </div>
+      </div>
+      <div class="portfolio-card portfolio">
+        <div class="portfolio-card-content">
+          <h3>Portfolio & Blog</h3>
+          <p>Modern portfolio showcasing projects and case studies</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1045,21 +1124,19 @@
       });
     });
 
-    // ===== PORTFOLIO HORIZONTAL SCROLL =====
-    const portfolioWrapper = document.querySelector('.portfolio-wrapper');
-    if (portfolioWrapper) {
-      gsap.to(portfolioWrapper, {
-        x: () => -(portfolioWrapper.scrollWidth - window.innerWidth),
+    // ===== PORTFOLIO CARDS REVEAL =====
+    gsap.utils.toArray('.portfolio-card').forEach((card, index) => {
+      gsap.from(card, {
         scrollTrigger: {
-          trigger: '.portfolio',
-          start: 'top top',
-          end: () => `+=${portfolioWrapper.scrollWidth}`,
-          scrub: 1,
-          pin: true,
-          markers: false,
+          trigger: card,
+          start: 'top 80%',
         },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: index * 0.1,
       });
-    }
+    });
 
     // ===== SERVICE CARDS REVEAL =====
     gsap.utils.toArray('.service-card').forEach((card, index) => {
