@@ -1020,7 +1020,7 @@
         <input type="hidden" name="company" value="">
 
         <!-- Turnstile Widget -->
-        <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITEKEY_HERE" data-theme="dark"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEFExOm0OO_wqNWK" data-theme="dark"></div>
 
         <button type="submit" class="submit-btn">Send Inquiry</button>
         <div id="form-message" class="form-message"></div>
@@ -1216,13 +1216,24 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Wait for Turnstile to be ready
+      if (!window.turnstile) {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = 'Security verification not loaded. Please refresh and try again.';
+        return;
+      }
+
+      // Get Turnstile response token
+      const turnstileToken = window.turnstile.getResponse();
+      
+      if (!turnstileToken) {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = 'Please complete the security check.';
+        return;
+      }
+
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-
-      // Get Turnstile token
-      const turnstileToken = document.querySelector('textarea[name="cf-turnstile-response"]')?.value ||
-                             (window.turnstile ? window.turnstile.getResponse() : '');
-
       data.turnstileToken = turnstileToken;
 
       const submitBtn = form.querySelector('.submit-btn');
@@ -1242,14 +1253,16 @@
           formMessage.className = 'form-message success';
           formMessage.textContent = 'Thank you! We\'ll be in touch soon.';
           form.reset();
-          if (window.turnstile) window.turnstile.reset();
+          window.turnstile.reset();
         } else {
           formMessage.className = 'form-message error';
           formMessage.textContent = result.error || 'Something went wrong. Please try again.';
+          window.turnstile.reset();
         }
       } catch (err) {
         formMessage.className = 'form-message error';
         formMessage.textContent = 'Network error. Please try again.';
+        window.turnstile.reset();
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send Inquiry';
