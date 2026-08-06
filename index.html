@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CloudeBase — Cloud Systems & Modern Web Experiences</title>
+  <title>CloudeBase — Websites & Cloud Business Systems for Sri Lankan SMEs</title>
   <style>
     * {
       margin: 0;
@@ -476,6 +476,111 @@
       line-height: 1.8;
     }
 
+    /* ===== PACKAGES / PRICING ===== */
+    .packages {
+      background: white;
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+    }
+
+    .package-card {
+      background: var(--light);
+      padding: 36px 30px;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+    }
+
+    .package-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 102, 255, 0.12);
+      background: white;
+    }
+
+    .package-card.featured {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 15px 35px rgba(0, 102, 255, 0.15);
+    }
+
+    .package-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .package-card h3 {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .package-tagline {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .package-price {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .package-price span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .package-features {
+      list-style: none;
+      text-align: left;
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .package-features li {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .package-features li:last-child {
+      border-bottom: none;
+    }
+
+    .package-note {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 768px) {
+      .packages-grid { grid-template-columns: 1fr; }
+    }
+
     /* ===== STATISTICS ===== */
     .stats {
       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
@@ -802,8 +907,9 @@
     <div class="logo">Cloude<span class="logo-accent">Base</span></div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#portfolio">Products</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#packages">Pricing</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -814,7 +920,7 @@
     <div class="particles" id="particles-container"></div>
     <div class="hero-content">
       <h1>CloudeBase</h1>
-      <p>Cloud Systems & Modern Web Experiences</p>
+      <p>Websites & Cloud Business Systems for Sri Lankan SMEs</p>
     </div>
     <div class="scroll-indicator">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -828,52 +934,52 @@
     <div class="about-content">
       <div class="about-text">
         <h2>About CloudeBase</h2>
-        <p>We deliver premium cloud solutions and modern web experiences for businesses of all sizes.</p>
-        <p>From restaurant management systems to enterprise billing platforms, we combine cutting-edge technology with thoughtful design to create solutions that scale.</p>
-        <p>Our team specializes in full-stack development, cloud infrastructure, and digital transformation.</p>
+        <p>CloudeBase provides modern web solutions for small and medium-sized businesses. We help you establish your online presence with professional websites and cloud-based business applications that are affordable, secure, and easy to use.</p>
+        <p>We work under two service categories: one-time website design & development for businesses like restaurants, hotels, salons, pharmacies, tailoring shops, retail stores, educational institutes, travel agencies, and corporate companies — and subscription-based cloud business systems (SaaS) that replace the need to buy, host, and maintain your own software.</p>
+        <p>Our long-term vision is to become a cloud-first software company providing affordable digital solutions for Sri Lankan SMEs, built on reusable multi-tenant platforms so every new customer can be onboarded quickly.</p>
       </div>
       <div class="about-image">☁️</div>
     </div>
   </section>
 
-  <!-- Portfolio (Grid Layout) -->
+  <!-- Products / Our Work -->
   <section class="portfolio" id="portfolio">
-    <h2 class="section-title">Our Work</h2>
+    <h2 class="section-title">Our Products</h2>
     <div class="portfolio-grid">
-      <div class="portfolio-card restaurant">
+      <div class="portfolio-card roms">
         <div class="portfolio-card-content">
-          <h3>Restaurant Management</h3>
-          <p>Full-featured POS system with inventory and order tracking</p>
-        </div>
-      </div>
-      <div class="portfolio-card garment">
-        <div class="portfolio-card-content">
-          <h3>Garment Inventory System</h3>
-          <p>Real-time stock management and supplier tracking</p>
+          <h3>ROMS</h3>
+          <p>Restaurant Order Management System — QR ordering, kitchen display, cashier POS, order tracking, menu & staff management, multi-branch support</p>
         </div>
       </div>
       <div class="portfolio-card billing">
         <div class="portfolio-card-content">
-          <h3>Billing & Invoicing</h3>
-          <p>Automated billing platform with payment integration</p>
+          <h3>SLPOS</h3>
+          <p>Retail Point of Sale System — billing, inventory, customer & supplier management, barcode support, multi-branch reporting</p>
         </div>
       </div>
-      <div class="portfolio-card roms">
+      <div class="portfolio-card restaurant">
         <div class="portfolio-card-content">
-          <h3>ROMS Dashboard</h3>
-          <p>Real-time operations monitoring and reporting</p>
+          <h3>Website Design & Development</h3>
+          <p>Responsive business websites for restaurants, hotels, salons, retail stores, institutes, and corporate companies</p>
         </div>
       </div>
       <div class="portfolio-card hosting">
         <div class="portfolio-card-content">
           <h3>Cloud Hosting Platform</h3>
-          <p>Scalable infrastructure on Cloudflare and Oracle Cloud</p>
+          <p>Scalable infrastructure on Cloudflare Pages, Workers, D1 and R2 with automatic backups and SSL</p>
+        </div>
+      </div>
+      <div class="portfolio-card garment">
+        <div class="portfolio-card-content">
+          <h3>Business Dashboards</h3>
+          <p>Real-time operations dashboards and reporting for growing SMEs</p>
         </div>
       </div>
       <div class="portfolio-card portfolio">
         <div class="portfolio-card-content">
-          <h3>Portfolio & Blog</h3>
-          <p>Modern portfolio showcasing projects and case studies</p>
+          <h3>Portfolio & Landing Pages</h3>
+          <p>Modern portfolio and landing page websites showcasing projects and services</p>
         </div>
       </div>
     </div>
@@ -885,35 +991,99 @@
     <div class="services-grid">
       <div class="service-card fade-in-up">
         <div class="service-icon">💻</div>
-        <h3>Web Development</h3>
-        <p>Modern, responsive websites and single-page applications built with the latest technologies.</p>
+        <h3>Web Design & Development</h3>
+        <p>Business websites, portfolio websites, and landing pages built with modern, responsive design.</p>
       </div>
       <div class="service-card fade-in-up delay-1">
         <div class="service-icon">☁️</div>
-        <h3>Cloud Infrastructure</h3>
-        <p>Scalable cloud solutions on Cloudflare, AWS, and Oracle Cloud with enterprise-grade reliability.</p>
+        <h3>Cloud Applications (SaaS)</h3>
+        <p>Subscription-based business systems like ROMS and SLPOS — no servers, no maintenance, automatic updates and backups.</p>
       </div>
       <div class="service-card fade-in-up delay-2">
         <div class="service-icon">⚙️</div>
-        <h3>System Integration</h3>
-        <p>Seamless integration of business systems, APIs, and data workflows for maximum efficiency.</p>
+        <h3>Business Automation</h3>
+        <p>Customer portals, dashboards, and workflow automation that connect your business systems.</p>
       </div>
       <div class="service-card fade-in-up delay-3">
         <div class="service-icon">📊</div>
-        <h3>Dashboard & Analytics</h3>
-        <p>Real-time dashboards and analytics platforms to visualize your business data.</p>
+        <h3>Dashboards & Reporting</h3>
+        <p>Real-time dashboards and analytics to help you track and grow your business.</p>
       </div>
       <div class="service-card fade-in-up delay-1">
         <div class="service-icon">🔒</div>
-        <h3>Security & Compliance</h3>
-        <p>Enterprise security standards, bot protection, and compliance with industry regulations.</p>
+        <h3>Hosting & Cloud Services</h3>
+        <p>Hosting, website maintenance, cloud migration, and performance optimization on Cloudflare infrastructure.</p>
       </div>
       <div class="service-card fade-in-up delay-2">
         <div class="service-icon">🚀</div>
-        <h3>Performance Optimization</h3>
-        <p>Lightning-fast load times and optimized performance for global audiences.</p>
+        <h3>Consulting</h3>
+        <p>Guidance on the right digital solution for your business — from a simple website to a full cloud platform.</p>
       </div>
     </div>
+  </section>
+
+  <!-- Packages / Pricing -->
+  <section class="packages" id="packages">
+    <h2 class="section-title">Website Packages</h2>
+    <div class="packages-grid">
+      <div class="package-card">
+        <h3>Starter Website</h3>
+        <p class="package-tagline">Ideal for small businesses and startups</p>
+        <div class="package-price">LKR 15,000<span>starting from</span></div>
+        <ul class="package-features">
+          <li>Up to 3 Pages</li>
+          <li>Responsive Design</li>
+          <li>Contact Form</li>
+          <li>Google Maps</li>
+          <li>WhatsApp Integration</li>
+          <li>Social Media Links</li>
+          <li>Basic SEO</li>
+          <li>Cloudflare Hosting Support</li>
+        </ul>
+      </div>
+      <div class="package-card featured">
+        <span class="package-badge">Most Popular</span>
+        <h3>Business Website</h3>
+        <p class="package-tagline">Ideal for growing businesses</p>
+        <div class="package-price">LKR 30,000<span>starting from</span></div>
+        <ul class="package-features">
+          <li>Up to 6 Pages</li>
+          <li>Custom Design</li>
+          <li>Gallery</li>
+          <li>Testimonials</li>
+          <li>Contact Form</li>
+          <li>Google Maps</li>
+          <li>Basic SEO</li>
+          <li>Performance Optimization</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <h3>Professional Website</h3>
+        <p class="package-tagline">Ideal for companies & organizations</p>
+        <div class="package-price">LKR 50,000<span>starting from</span></div>
+        <ul class="package-features">
+          <li>Up to 10 Pages</li>
+          <li>Premium UI Design</li>
+          <li>Animations</li>
+          <li>Blog-ready Layout</li>
+          <li>Portfolio Section</li>
+          <li>Advanced Contact Forms</li>
+          <li>SEO Optimization</li>
+          <li>Performance Optimization</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <h3>Custom Website</h3>
+        <p class="package-tagline">For unique features & custom designs</p>
+        <div class="package-price">Get a Quote<span>after consultation</span></div>
+        <ul class="package-features">
+          <li>Tailored feature set</li>
+          <li>Custom UI/UX design</li>
+          <li>Scoped after consultation</li>
+        </ul>
+      </div>
+    </div>
+    <p class="package-note">Optional add-ons available for all packages: additional pages, multi-language support, PWA, blog, image gallery, Google Analytics, advanced SEO, maintenance packages, and hosting & domain management. ROMS and SLPOS are offered as monthly SaaS subscriptions — get in touch for plan details.</p>
   </section>
 
   <!-- Statistics -->
@@ -1201,6 +1371,20 @@
         scrollTrigger: {
           trigger: card,
           start: 'top 80%',
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        delay: index * 0.1,
+      });
+    });
+
+    // ===== PACKAGE CARDS REVEAL =====
+    gsap.utils.toArray('.package-card').forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
         },
         opacity: 0,
         y: 30,
