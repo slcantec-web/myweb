@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember &amp; Copper — Fine Dining Restaurant</title>
+<meta name="description" content="Ember & Copper is a fine dining restaurant built around a wood-fired open kitchen and a tasting menu organized course by course. Reservations recommended.">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="nav" data-nav>
+  <div class="container nav__inner">
+    <a href="#top" class="nav__brand">Ember <span>&amp; Copper</span></a>
+    <ul class="nav__menu" data-menu>
+      <li><a href="#about">The Kitchen</a></li>
+      <li><a href="#services">Menu</a></li>
+      <li><a href="#gallery">Inside</a></li>
+      <li><a href="#pricing">Tasting Menus</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav__cta">Reserve</a></li>
+    </ul>
+    <button class="nav__toggle" data-menu-toggle aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <svg class="hero__ring" viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="170" stroke="#b3823f" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="120" stroke="#6e2331" stroke-opacity="0.4" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="70" stroke="#f2ece2" stroke-opacity="0.12" stroke-width="1"/>
+    </svg>
+    <div class="container">
+      <div class="hero__inner">
+        <p class="hero__kicker">Fine Dining &amp; Open Kitchen</p>
+        <h1>Cooked over <em>fire</em>, plated with care</h1>
+        <p>Ember &amp; Copper builds every dish around the wood-fired hearth at the center of the room. The menu changes with the season and the tasting menu tells its story course by course.</p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary">Reserve a Table</a>
+          <a href="#services" class="btn btn--ghost">View the Menu</a>
+        </div>
+        <div class="hero__stats">
+          <div class="hero__stat"><strong>7</strong><span>Course Tasting Menu</span></div>
+          <div class="hero__stat"><strong>14</strong><span>Years in the Kitchen</span></div>
+          <div class="hero__stat"><strong>4.8</strong><span>Average Rating</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <div class="about__visual" data-reveal>
+        <img src="https://images.pexels.com/photos/19553654/pexels-photo-19553654.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Chefs preparing dishes in the open kitchen" loading="lazy">
+      </div>
+      <div class="about__body" data-reveal data-reveal-delay="1">
+        <div class="course-tag">Course 01</div>
+        <h2 class="section-title">The Kitchen</h2>
+        <p>Ember &amp; Copper opened in 2012 around a single idea: build the kitchen in the middle of the dining room and cook everything over the same wood fire, where guests can watch it happen.</p>
+        <p>The tasting menu changes with what the fire and the season allow, and every table gets the same seven courses, paced by the kitchen, not the clock.</p>
+        <ul class="about__list">
+          <li>Open, wood-fired show kitchen</li>
+          <li>Seasonal seven-course tasting menu</li>
+          <li>Extensive natural wine list</li>
+          <li>Private dining room for up to 12</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section--alt" id="services">
+    <div class="container">
+      <div class="services__head" data-reveal>
+        <div>
+          <div class="course-tag">Course 02</div>
+          <h2 class="section-title">On the Menu</h2>
+        </div>
+        <p class="section-lede">A short menu, built around what's in season and what the fire does best.</p>
+      </div>
+      <div class="services__grid" data-reveal data-reveal-delay="1">
+        <div class="service-card"><div class="service-card__num">I.</div><h3>Tasting Menu</h3><p>Seven courses built around the fire, changing weekly with the season.</p></div>
+        <div class="service-card"><div class="service-card__num">II.</div><h3>À La Carte</h3><p>A shorter menu available at the bar and on the patio, no reservation required.</p></div>
+        <div class="service-card"><div class="service-card__num">III.</div><h3>Wine Pairing</h3><p>A natural and low-intervention wine list, paired course by course by our sommelier.</p></div>
+        <div class="service-card"><div class="service-card__num">IV.</div><h3>Chef's Table</h3><p>Four seats facing the hearth, with dishes explained by the chef as they're plated.</p></div>
+        <div class="service-card"><div class="service-card__num">V.</div><h3>Private Dining</h3><p>A closed room for up to 12, with a menu built around your group in advance.</p></div>
+        <div class="service-card"><div class="service-card__num">VI.</div><h3>Bar Service</h3><p>Walk-in seating at the bar for drinks, snacks, and the shorter à la carte menu.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section" id="why">
+    <div class="container edge">
+      <div data-reveal>
+        <div class="course-tag">Course 03</div>
+        <h2 class="section-title">Why Ember &amp; Copper</h2>
+        <p class="section-lede">The fire is the one constant. Everything else changes with the season around it.</p>
+      </div>
+      <div class="edge__grid" data-reveal data-reveal-delay="1">
+        <div class="edge-item"><strong>7</strong><span>Courses on the tasting menu</span></div>
+        <div class="edge-item"><strong>1</strong><span>Open wood-fired hearth</span></div>
+        <div class="edge-item"><strong>120+</strong><span>Bottles on the wine list</span></div>
+        <div class="edge-item"><strong>12</strong><span>Seats in private dining</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section section--alt" id="gallery">
+    <div class="container">
+      <div data-reveal style="margin-bottom:48px;">
+        <div class="course-tag">Course 04</div>
+        <h2 class="section-title">Inside the Dining Room</h2>
+      </div>
+      <div class="gallery__grid" data-reveal data-reveal-delay="1">
+        <div class="gallery__item gallery__item--tall" style="background-image:url('https://images.pexels.com/photos/17785784/pexels-photo-17785784.jpeg?auto=compress&cs=tinysrgb&w=800');"><span>The Hearth</span></div>
+        <div class="gallery__item" style="background-image:url('https://images.pexels.com/photos/18337050/pexels-photo-18337050.jpeg?auto=compress&cs=tinysrgb&w=800');"><span>Chef's Table</span></div>
+        <div class="gallery__item gallery__item--wide" style="background-image:url('https://images.pexels.com/photos/30507463/pexels-photo-30507463.jpeg?auto=compress&cs=tinysrgb&w=800');"><span>Main Dining Room</span></div>
+        <div class="gallery__item" style="background-image:url('https://images.pexels.com/photos/5251019/pexels-photo-5251019.jpeg?auto=compress&cs=tinysrgb&w=800');"><span>Wine Cellar</span></div>
+        <div class="gallery__item gallery__item--wide" style="background-image:url('https://images.pexels.com/photos/6309829/pexels-photo-6309829.jpeg?auto=compress&cs=tinysrgb&w=800');"><span>Private Room</span></div>
+        <div class="gallery__item" style="background-image:url('https://images.pexels.com/photos/19553654/pexels-photo-19553654.jpeg?auto=compress&cs=tinysrgb&w=800');"><span>The Bar</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div data-reveal style="margin-bottom:48px;">
+        <div class="course-tag">Course 05</div>
+        <h2 class="section-title">From the Dining Room</h2>
+      </div>
+      <div class="testimonials__grid" data-reveal data-reveal-delay="1">
+        <div class="testimonial-card"><div class="testimonial-card__stars">★★★★★</div><p>"Watching the fire cook every course while you eat it changes the whole meal. Best tasting menu in the city, easily."</p><div class="testimonial-card__author"><div class="testimonial-card__avatar"><img src="https://images.pexels.com/photos/3791554/pexels-photo-3791554.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Victor R." loading="lazy"></div><div><strong>Victor R.</strong><span>Tasting menu guest</span></div></div></div>
+        <div class="testimonial-card"><div class="testimonial-card__stars">★★★★★</div><p>"The wine pairing alone was worth the reservation. Our sommelier explained every glass without ever feeling like a lecture."</p><div class="testimonial-card__author"><div class="testimonial-card__avatar"><img src="https://images.pexels.com/photos/30004322/pexels-photo-30004322.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Camille N." loading="lazy"></div><div><strong>Camille N.</strong><span>Wine pairing guest</span></div></div></div>
+        <div class="testimonial-card"><div class="testimonial-card__stars">★★★★★</div><p>"We hosted a 10-person dinner in the private room and the chef built the whole menu around what we wanted. Flawless."</p><div class="testimonial-card__author"><div class="testimonial-card__avatar"><img src="https://images.pexels.com/photos/30767572/pexels-photo-30767572.jpeg?auto=compress&cs=tinysrgb&w=100" alt="Jamal B." loading="lazy"></div><div><strong>Jamal B.</strong><span>Private dining host</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section--alt" id="pricing">
+    <div class="container">
+      <div data-reveal style="margin-bottom:16px;">
+        <div class="course-tag">Course 06</div>
+        <h2 class="section-title">Tasting Menus</h2>
+      </div>
+      <p class="pricing__note" data-reveal data-reveal-delay="1">Reservations are recommended for the tasting menu and required for the chef's table and private dining.</p>
+      <div class="pricing__grid" data-reveal data-reveal-delay="1">
+        <div class="price-card">
+          <h3>À La Carte</h3>
+          <div class="price-card__amount">$28<span>+</span></div>
+          <ul><li>No reservation required</li><li>Bar &amp; patio seating</li><li>Full wine list available</li></ul>
+          <a href="#contact" class="btn btn--ghost">Reserve a Table</a>
+        </div>
+        <div class="price-card price-card--featured">
+          <h3>Chef's Table Tasting</h3>
+          <div class="price-card__amount">$165<span>/person</span></div>
+          <ul><li>Seven-course tasting menu</li><li>Seated at the hearth</li><li>Optional wine pairing (+$85)</li><li>Reservation required</li></ul>
+          <a href="#contact" class="btn btn--primary">Book Chef's Table</a>
+        </div>
+        <div class="price-card">
+          <h3>Private Dining</h3>
+          <div class="price-card__amount">Custom</div>
+          <ul><li>Room for up to 12 guests</li><li>Menu built around your group</li><li>Dedicated service staff</li></ul>
+          <a href="#contact" class="btn btn--ghost">Inquire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div data-reveal style="margin-bottom:40px;">
+        <div class="course-tag">Course 07</div>
+        <h2 class="section-title">Questions</h2>
+      </div>
+      <div class="faq" data-faq-list data-reveal data-reveal-delay="1">
+        <div class="faq-item" data-faq-item>
+          <button class="faq-item__q" data-faq-question>Do you accommodate dietary restrictions?</button>
+          <div class="faq-item__a">Yes — let us know when you reserve and the kitchen will adjust the tasting menu course by course.</div>
+        </div>
+        <div class="faq-item" data-faq-item>
+          <button class="faq-item__q" data-faq-question>How far ahead should I book the tasting menu?</button>
+          <div class="faq-item__a">1–2 weeks is typical, though weekends fill faster. The chef's table often books 3–4 weeks out.</div>
+        </div>
+        <div class="faq-item" data-faq-item>
+          <button class="faq-item__q" data-faq-question>Is there a dress code?</button>
+          <div class="faq-item__a">Smart casual is welcome throughout the dining room — no formal dress code, but no shorts or flip-flops after 6pm.</div>
+        </div>
+        <div class="faq-item" data-faq-item>
+          <button class="faq-item__q" data-faq-question>What's your cancellation policy?</button>
+          <div class="faq-item__a">Tasting menu reservations can be cancelled up to 48 hours ahead without charge; inside that window a deposit is held.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section--alt" id="contact">
+    <div class="container contact">
+      <div data-reveal>
+        <div class="course-tag">Course 08</div>
+        <h2 class="section-title">Reserve Your Table</h2>
+        <p class="section-lede" style="margin-bottom:32px;">Tell us your party size and preferred date — we'll confirm within a day.</p>
+        <div class="contact__info">
+          <div class="contact__row"><div class="contact__icon">📍</div><div><strong>Address</strong><span>19 Hearthstone Lane, Downtown</span></div></div>
+          <div class="contact__row"><div class="contact__icon">📞</div><div><strong>Phone</strong><a href="tel:+15558123456">(555) 812-3456</a></div></div>
+          <div class="contact__row"><div class="contact__icon">✉️</div><div><strong>Email</strong><a href="mailto:reservations@emberandcopper.com">reservations@emberandcopper.com</a></div></div>
+          <div class="contact__row"><div class="contact__icon">🕐</div><div><strong>Hours</strong><span>Tue–Sat 5:30pm–11pm · Closed Sun–Mon</span></div></div>
+        </div>
+        <div class="contact__socials">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="OpenTable">OT</a>
+        </div>
+        <div class="contact__map">
+          <iframe src="https://www.google.com/maps?q=fine%20dining%20restaurant%20downtown&output=embed" loading="lazy" title="Ember & Copper location map" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <form class="contact__form" data-contact-form data-reveal data-reveal-delay="1" novalidate>
+        <div class="form-field">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+          <span data-error></span>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+          <span data-error></span>
+        </div>
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone">
+          <span data-error></span>
+        </div>
+        <div class="form-field">
+          <label for="message">Party size &amp; preferred date</label>
+          <textarea id="message" name="message" rows="4" required placeholder="e.g. Table for 4, Saturday at 7pm"></textarea>
+          <span data-error></span>
+        </div>
+        <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Request Reservation</button>
+        <p class="form-status" data-form-status></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <div class="footer__brand">Ember <span>&amp; Copper</span></div>
+        <p>A wood-fired fine dining restaurant built around one open hearth since 2012.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#about">The Kitchen</a></li><li><a href="#services">Menu</a></li><li><a href="#pricing">Tasting Menus</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li><li><a href="#top">Reserve</a></li></ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">OpenTable</a></li></ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Ember &amp; Copper. All rights reserved.</span>
+      <span>Portfolio demo template — part of a reusable business-site library.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="float-stack">
+  <a class="float-btn back-to-top" data-back-to-top aria-label="Back to top">↑</a>
+  <a class="float-btn float-btn--call" href="tel:+15558123456" aria-label="Call the restaurant">📞</a>
+  <a class="float-btn float-btn--whatsapp" href="https://wa.me/15558123456" aria-label="Message on WhatsApp" target="_blank" rel="noopener">💬</a>
+</div>
+
+<script src="../assets/js/common.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
