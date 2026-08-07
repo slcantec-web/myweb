@@ -271,3 +271,56 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .gallery__grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
   .footer__top { grid-template-columns: 1fr 1fr; }
 }
+/* =========================================================
+   PERFORMANCE PATCH — append to the end of each template's
+   assets/css/style.css. Fixes scroll jank caused by:
+   1) .nav changing `height` on scroll (layout/reflow trigger)
+   2) backdrop-filter being toggled on/off during scroll
+   3) full-size background images all painting/decoding at once
+      even when off-screen
+   Safe to append as-is; these rules override the earlier ones
+   by cascade order (they come later in the file).
+   ========================================================= */
+
+/* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+.nav {
+  /* height stays fixed via --nav-height, no longer changes in .is-scrolled */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  will-change: background;
+}
+.nav.is-scrolled {
+  /* removed: height change (was forcing layout every scroll frame) */
+}
+
+/* If your theme relies on the shrink-on-scroll look, fake it with padding
+   on the inner row instead of resizing the whole fixed bar (padding does
+   not affect fixed-position layout the way height does): */
+.nav__inner {
+  transition: padding 0.25s ease;
+}
+.nav.is-scrolled .nav__inner {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* ---- 3: skip layout/paint work for off-screen heavy sections ---- */
+.gallery__item,
+.testimonial-card,
+.price-card,
+.service-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 280px 320px;
+}
+
+/* Reduce compositing cost of the fixed float buttons + back-to-top,
+   which otherwise repaint every scroll tick alongside the nav. */
+.float-stack,
+.back-to-top {
+  will-change: transform, opacity;
+}
+
+/* Respect reduced motion (already partially present per-template, this
+   just also covers the newly added transitions above). */
+@media (prefers-reduced-motion: reduce) {
+  .nav, .nav__inner { transition: none !important; }
+}
