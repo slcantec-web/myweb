@@ -60,25 +60,92 @@
       position: absolute;
       width: 50%;
       height: 50%;
-      background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255,255,255,0.35) 0%, transparent 55%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 14px),
+        linear-gradient(135deg, #0052cc 0%, #0066ff 45%, #00d4ff 100%);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
       opacity: 1;
-      animation: panel-out 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+      animation: panel-out 1s cubic-bezier(0.65, 0, 0.35, 1) 0.45s forwards;
     }
 
-    .panel-tl { top: 0; left: 0; --dx: -50px; --dy: -50px; }
-    .panel-tr { top: 0; right: 0; --dx: 50px; --dy: -50px; }
-    .panel-bl { bottom: 0; left: 0; --dx: -50px; --dy: 50px; }
-    .panel-br { bottom: 0; right: 0; --dx: 50px; --dy: 50px; }
+    /* corner accent ring — a small unique flourish instead of a flat block */
+    .panel::after {
+      content: '';
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+    }
+
+    .panel-tl { top: 0; left: 0; --dx: -60px; --dy: -60px; --rot: -6deg; --glow-x: 100%; --glow-y: 100%; }
+    .panel-tl::after { right: -60px; bottom: -60px; }
+
+    .panel-tr { top: 0; right: 0; --dx: 60px; --dy: -60px; --rot: 6deg; --glow-x: 0%; --glow-y: 100%; }
+    .panel-tr::after { left: -60px; bottom: -60px; }
+
+    .panel-bl { bottom: 0; left: 0; --dx: -60px; --dy: 60px; --rot: 6deg; --glow-x: 100%; --glow-y: 0%; }
+    .panel-bl::after { right: -60px; top: -60px; }
+
+    .panel-br { bottom: 0; right: 0; --dx: 60px; --dy: 60px; --rot: -6deg; --glow-x: 0%; --glow-y: 0%; }
+    .panel-br::after { left: -60px; top: -60px; }
 
     @keyframes panel-out {
-      from { opacity: 1; transform: translate(0, 0); }
-      to   { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+      0%   { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+    }
+
+    /* Centered brand mark — scales in while the panels are still framing
+       it, then fades out together with them. Turns a plain 4-way wipe
+       into an actual branded intro instead of four flat color blocks. */
+    .opening-center {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      pointer-events: none;
+      animation: center-reveal 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    .opening-center .mark {
+      font-size: 44px;
+      line-height: 1;
+      filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.25));
+    }
+
+    .opening-center .wordmark {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: white;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .opening-center .wordmark .accent {
+      color: #d8f7ff;
+    }
+
+    @keyframes center-reveal {
+      0%   { opacity: 0; transform: scale(0.8); }
+      22%  { opacity: 1; transform: scale(1); }
+      68%  { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.06); }
     }
 
     /* fully remove from layout/paint after the animation finishes so it
        can never intercept a tap even with pointer-events as a backup */
+    .opening-overlay,
+    .opening-center {
+      animation-fill-mode: forwards;
+    }
     .opening-overlay {
-      animation: overlay-cleanup 0s linear 1.3s forwards;
+      animation: overlay-cleanup 0s linear 1.45s forwards;
     }
     @keyframes overlay-cleanup {
       to { display: none; }
@@ -632,6 +699,21 @@
       border-bottom: none;
     }
 
+    .package-features li.highlight {
+      color: var(--primary-dark);
+      font-weight: 700;
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .package-features li.highlight::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #2f9e44;
+      font-weight: 800;
+    }
+
     .package-note {
       text-align: center;
       max-width: 700px;
@@ -1020,6 +1102,10 @@
     <div class="panel panel-bl"></div>
     <div class="panel panel-br"></div>
   </div>
+  <div class="opening-center" aria-hidden="true">
+    <div class="mark">☁️</div>
+    <div class="wordmark">Cloude<span class="accent">Base</span></div>
+  </div>
 
   <!-- Navbar -->
   <nav class="navbar">
@@ -1160,7 +1246,7 @@
           <li>WhatsApp Integration</li>
           <li>Social Media Links</li>
           <li>Basic SEO</li>
-          <li>Cloudflare Hosting Support</li>
+          <li class="highlight">1st Year Hosting Free</li>
         </ul>
       </div>
       <div class="package-card featured reveal">
@@ -1177,6 +1263,7 @@
           <li>Google Maps</li>
           <li>Basic SEO</li>
           <li>Performance Optimization</li>
+          <li class="highlight">1st Year Hosting Free</li>
         </ul>
       </div>
       <div class="package-card reveal">
@@ -1192,6 +1279,7 @@
           <li>Advanced Contact Forms</li>
           <li>SEO Optimization</li>
           <li>Performance Optimization</li>
+          <li class="highlight">1st Year Hosting Free</li>
         </ul>
       </div>
       <div class="package-card reveal">
@@ -1205,7 +1293,7 @@
         </ul>
       </div>
     </div>
-    <p class="package-note">Optional add-ons available for all packages: additional pages, multi-language support, PWA, blog, image gallery, Google Analytics, advanced SEO, maintenance packages, and hosting & domain management. ROMS and SLPOS are offered as monthly SaaS subscriptions — get in touch for plan details.</p>
+    <p class="package-note">1st year hosting is free on all website packages; hosting renews at standard rates from year 2. Domain registration is charged separately if a new domain is required. Optional add-ons available for all packages: additional pages, multi-language support, PWA, blog, image gallery, Google Analytics, advanced SEO, and maintenance packages. ROMS and SLPOS are offered as monthly SaaS subscriptions — get in touch for plan details.</p>
   </section>
 
   <!-- Statistics -->
