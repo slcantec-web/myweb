@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>CloudeBase — Websites & Cloud Business Systems for Sri Lankan SMEs</title>
+  <title>CloudeBase — Affordable Cloud Business Solutions for SMEs</title>
+  <meta name="description" content="CloudeBase builds affordable cloud business solutions for Sri Lankan SMEs — SaaS products like ROMS and SLPOS, professional business websites, custom software, and Cloudflare-powered hosting.">
   <style>
     * {
       margin: 0;
@@ -23,9 +24,6 @@
     }
 
     html {
-      /* IMPORTANT: no height:100% here — it fights mobile browser chrome
-         (address bar show/hide) and can cause the page to appear frozen
-         or clipped on iOS/Android. Let the document size itself naturally. */
       scroll-behavior: smooth;
     }
 
@@ -37,12 +35,6 @@
       color: var(--text);
       line-height: 1.6;
       scrollbar-gutter: stable;
-      /* NOTE: body is scrollable by default at all times now.
-         Previously this was `overflow-y: hidden` until a JS callback
-         removed it — if the animation script ever failed to load
-         (slow network, blocker, in-app browser) the whole site was
-         permanently stuck and unscrollable. Never gate basic scrolling
-         behind a 3rd-party script again. */
     }
 
     /* ===== OPENING REVEAL (pure CSS, no JS dependency) ===== */
@@ -53,7 +45,7 @@
       width: 100%;
       height: 100%;
       z-index: 9999;
-      pointer-events: none; /* never blocks taps/scroll, even mid-animation */
+      pointer-events: none;
     }
 
     .panel {
@@ -70,7 +62,6 @@
       animation: panel-out 1s cubic-bezier(0.65, 0, 0.35, 1) 0.45s forwards;
     }
 
-    /* corner accent ring — a small unique flourish instead of a flat block */
     .panel::after {
       content: '';
       position: absolute;
@@ -97,9 +88,6 @@
       100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
     }
 
-    /* Centered brand mark — scales in while the panels are still framing
-       it, then fades out together with them. Turns a plain 4-way wipe
-       into an actual branded intro instead of four flat color blocks. */
     .opening-center {
       position: fixed;
       inset: 0;
@@ -138,8 +126,6 @@
       100% { opacity: 0; transform: scale(1.06); }
     }
 
-    /* fully remove from layout/paint after the animation finishes so it
-       can never intercept a tap even with pointer-events as a backup */
     .opening-overlay,
     .opening-center {
       animation-fill-mode: forwards;
@@ -180,7 +166,7 @@
 
     .nav-links {
       display: flex;
-      gap: 40px;
+      gap: 34px;
       list-style: none;
     }
 
@@ -238,7 +224,7 @@
     .nav-toggle.open span:nth-child(2) { opacity: 0; }
     .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .navbar { padding: 0 20px; }
 
       .nav-links {
@@ -257,7 +243,7 @@
       }
 
       .nav-links.open {
-        max-height: 400px;
+        max-height: 500px;
       }
 
       .nav-links li {
@@ -277,7 +263,7 @@
     /* ===== HERO ===== */
     .hero {
       min-height: 100vh;
-      min-height: 100svh; /* fixes iOS address-bar jump */
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -319,26 +305,90 @@
       position: relative;
       width: 100%;
       padding: 0 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(0, 102, 255, 0.08);
+      border: 1px solid rgba(0, 102, 255, 0.18);
+      padding: 8px 16px;
+      border-radius: 30px;
+      margin-bottom: 24px;
     }
 
     .hero h1 {
-      font-size: 72px;
+      font-size: 56px;
       font-weight: 800;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 .grad {
       background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -1px;
     }
 
     .hero p {
-      font-size: 24px;
+      font-size: 19px;
       color: var(--text-light);
       margin-bottom: 40px;
-      max-width: 600px;
+      max-width: 620px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn--primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25);
+    }
+
+    .hero-btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(0, 102, 255, 0.35);
+    }
+
+    .hero-btn--ghost {
+      background: white;
+      color: var(--text);
+      border: 1.5px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-btn--ghost:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .scroll-indicator {
@@ -363,12 +413,12 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 { 
-        font-size: 42px;
+      .hero h1 {
+        font-size: 36px;
         margin-bottom: 15px;
       }
-      .hero p { 
-        font-size: 18px;
+      .hero p {
+        font-size: 16px;
         margin-bottom: 30px;
       }
       .hero-content {
@@ -376,9 +426,42 @@
       }
     }
 
-    /* ===== SECTIONS ===== */
+    /* ===== SECTIONS (shared) ===== */
     section {
       padding: 100px 40px;
+    }
+
+    .section-eyebrow {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 18px;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    .section-lede {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 56px;
+      color: var(--text-light);
+      font-size: 16.5px;
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 60px 20px; }
+      .section-title { font-size: 30px; }
+      .section-lede { margin-bottom: 36px; }
     }
 
     /* ===== ABOUT ===== */
@@ -391,13 +474,6 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     }
 
-    .section-title {
-      font-size: 48px;
-      font-weight: 800;
-      margin-bottom: 60px;
-      text-align: center;
-    }
-
     .about-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -406,7 +482,7 @@
     }
 
     .about-text h2 {
-      font-size: 36px;
+      font-size: 34px;
       margin-bottom: 20px;
       color: var(--primary);
     }
@@ -434,135 +510,32 @@
       .about { padding: 40px 24px; }
       .about-content { grid-template-columns: 1fr; gap: 30px; }
       .about-image { height: 260px; font-size: 80px; }
-      section { padding: 60px 20px; }
-      .section-title { font-size: 32px; margin-bottom: 36px; }
     }
 
-    /* ===== PORTFOLIO (Grid Layout) ===== */
-    .portfolio {
-      padding: 100px 40px;
+    /* ===== WHAT WE DO ===== */
+    .solutions {
       background: var(--light);
     }
 
-    .portfolio-grid {
+    .solutions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 30px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .portfolio-card {
-      min-height: 300px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      border-radius: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .portfolio-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .portfolio-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-    }
-
-    .portfolio-card:hover::before {
-      opacity: 1;
-    }
-
-    .portfolio-card-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .portfolio-card h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .portfolio-card p {
-      font-size: 14px;
-      line-height: 1.6;
-      opacity: 0.95;
-    }
-
-    .portfolio-card.restaurant { background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%); }
-    .portfolio-card.garment { background: linear-gradient(135deg, #845ef7 0%, #b197fc 100%); }
-    .portfolio-card.billing { background: linear-gradient(135deg, #15aabf 0%, #74c0fc 100%); }
-    .portfolio-card.roms { background: linear-gradient(135deg, #f59f00 0%, #ffd93d 100%); }
-    .portfolio-card.hosting { background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%); }
-    .portfolio-card.portfolio { background: linear-gradient(135deg, #1d7874 0%, #51cf66 100%); }
-
-    @media (max-width: 768px) {
-      .portfolio {
-        padding: 60px 20px;
-      }
-
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .portfolio-card {
-        min-height: 220px;
-        padding: 24px;
-      }
-
-      .portfolio-card h3 {
-        font-size: 20px;
-      }
-
-      .portfolio-card p {
-        font-size: 13px;
-      }
-    }
-
-    /* ===== SERVICES ===== */
-    .services {
-      background: var(--light);
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .service-card {
+    .solution-card {
       background: white;
-      padding: 40px;
+      padding: 36px 32px;
       border-radius: 15px;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
-      cursor: pointer;
       position: relative;
       overflow: hidden;
     }
 
-    .service-card::before {
+    .solution-card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -575,40 +548,141 @@
       transition: transform 0.3s ease;
     }
 
-    .service-card:hover {
+    .solution-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
     }
 
-    .service-card:hover::before {
+    .solution-card:hover::before {
       transform: scaleX(1);
     }
 
-    .service-icon {
-      font-size: 48px;
+    .solution-icon {
+      font-size: 40px;
       margin-bottom: 15px;
     }
 
-    .service-card h3 {
-      font-size: 20px;
-      margin-bottom: 15px;
+    .solution-card h3 {
+      font-size: 19px;
+      margin-bottom: 12px;
       color: var(--primary);
     }
 
-    .service-card p {
+    .solution-card p {
       font-size: 14px;
       color: var(--text-light);
       line-height: 1.8;
     }
 
-    @media (max-width: 768px) {
-      .services-grid { gap: 20px; }
-      .service-card { padding: 28px 24px; }
+    /* ===== SAAS PRODUCTS ===== */
+    .saas {
+      background: white;
     }
 
-    /* ===== PACKAGES / PRICING ===== */
-    .packages {
+    .saas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 18px;
+      padding: 36px 32px;
+      background: var(--light);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 44px rgba(0,102,255,0.14);
+      border-color: rgba(0,102,255,0.25);
+    }
+
+    .product-card__icon {
+      font-size: 34px;
+      margin-bottom: 14px;
+    }
+
+    .product-card h3 {
+      font-size: 21px;
+      margin-bottom: 4px;
+    }
+
+    .product-card__tagline {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .product-card__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 26px;
+      flex-grow: 1;
+    }
+
+    .product-card__cols h4 {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .product-card__cols ul {
+      list-style: none;
+      display: grid;
+      gap: 7px;
+    }
+
+    .product-card__cols li {
+      font-size: 13.5px;
+      color: var(--text-light);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .product-card__cols li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .product-card__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 20px;
+      border-radius: 8px;
       background: white;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .product-card__cta:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* ===== WEBSITE PACKAGES ===== */
+    .packages {
+      background: var(--light);
     }
 
     .packages-grid {
@@ -616,11 +690,11 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 30px;
       max-width: 1200px;
-      margin: 0 auto 40px;
+      margin: 0 auto 36px;
     }
 
     .package-card {
-      background: var(--light);
+      background: white;
       padding: 36px 30px;
       border-radius: 15px;
       text-align: center;
@@ -633,12 +707,10 @@
       transform: translateY(-8px);
       border-color: var(--primary);
       box-shadow: 0 20px 40px rgba(0, 102, 255, 0.12);
-      background: white;
     }
 
     .package-card.featured {
       border-color: var(--primary);
-      background: white;
       box-shadow: 0 15px 35px rgba(0, 102, 255, 0.15);
     }
 
@@ -716,50 +788,111 @@
 
     .package-note {
       text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
+      max-width: 720px;
+      margin: 0 auto 32px;
       font-size: 14px;
       color: var(--text-light);
     }
+
+    .package-portfolio-cta {
+      text-align: center;
+    }
+
+    .package-portfolio-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 3px;
+      transition: gap 0.2s ease;
+    }
+
+    .package-portfolio-cta a:hover { gap: 12px; }
 
     @media (max-width: 768px) {
       .packages-grid { grid-template-columns: 1fr; }
       .package-card { padding: 28px 22px; }
     }
 
-    /* ===== STATISTICS ===== */
-    .stats {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      color: white;
+    /* ===== WHY CHOOSE US ===== */
+    .why {
+      background: white;
     }
 
-    .stats-grid {
+    .why-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      max-width: 1200px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
-    .stat-item {
-      text-align: center;
+    .why-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--light);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-size: 14.5px;
+      font-weight: 600;
     }
 
-    .stat-number {
-      font-size: 56px;
+    .why-item span.check {
+      color: #2f9e44;
       font-weight: 800;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .why-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== INDUSTRIES ===== */
+    .industries {
+      background: var(--light);
+    }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .industry-chip {
+      background: white;
+      border-radius: 14px;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .industry-chip:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(0,102,255,0.12);
+    }
+
+    .industry-chip .emoji {
+      font-size: 30px;
+      display: block;
       margin-bottom: 10px;
     }
 
-    .stat-label {
-      font-size: 18px;
-      opacity: 0.9;
-    }
-
-    @media (max-width: 768px) {
-      .stats-grid { gap: 28px; }
-      .stat-number { font-size: 40px; }
-      .stat-label { font-size: 15px; }
+    .industry-chip span.label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
     }
 
     /* ===== PROCESS ===== */
@@ -787,7 +920,7 @@
     }
 
     .timeline-item {
-      margin-bottom: 80px;
+      margin-bottom: 70px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
@@ -830,20 +963,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 56px;
-      height: 56px;
+      width: 52px;
+      height: 52px;
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: white;
       border-radius: 50%;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       flex-shrink: 0;
     }
 
     .timeline-content h3 {
-      font-size: 24px;
-      margin-bottom: 12px;
+      font-size: 22px;
+      margin-bottom: 10px;
       color: var(--primary);
       font-weight: 700;
     }
@@ -855,51 +988,42 @@
     }
 
     @media (max-width: 768px) {
-      .timeline {
-        padding: 30px 0;
-      }
-
-      .timeline::before {
-        left: 20px;
-      }
-
-      .timeline-item {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        margin-bottom: 50px;
-      }
-
-      .timeline-item:nth-child(odd),
-      .timeline-item:nth-child(even) {
-        direction: ltr;
-      }
-
-      .timeline-content {
-        padding: 0 0 0 60px;
-      }
-
-      .timeline-dot {
-        left: 20px;
-        top: 25px;
-      }
-
-      .timeline-number {
-        width: 44px;
-        height: 44px;
-        font-size: 18px;
-        margin-bottom: 12px;
-      }
-
-      .timeline-content h3 {
-        font-size: 19px;
-      }
-
-      .timeline-content p {
-        font-size: 13px;
-      }
+      .timeline { padding: 30px 0; }
+      .timeline::before { left: 20px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 20px; margin-bottom: 44px; }
+      .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { direction: ltr; }
+      .timeline-content { padding: 0 0 0 60px; }
+      .timeline-dot { left: 20px; top: 25px; }
+      .timeline-number { width: 42px; height: 42px; font-size: 17px; margin-bottom: 12px; }
+      .timeline-content h3 { font-size: 18px; }
+      .timeline-content p { font-size: 13px; }
     }
 
-    /* ===== CONTACT / INQUIRY FORM ===== */
+    /* ===== TECHNOLOGIES ===== */
+    .tech {
+      background: var(--light);
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tech-badge {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 30px;
+    }
+
+    /* ===== CONTACT / INQUIRY FORM (unchanged — live SMS/inquiry gateway) ===== */
     .contact {
       background: linear-gradient(135deg, var(--dark) 0%, #1a3a52 100%);
       color: white;
@@ -947,7 +1071,7 @@
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.05);
       color: white;
-      font-size: 16px; /* 16px minimum prevents iOS Safari auto-zoom-on-focus */
+      font-size: 16px;
       font-family: inherit;
       transition: all 0.3s ease;
       -webkit-appearance: none;
@@ -1020,7 +1144,7 @@
       .contact h2 { font-size: 30px; }
     }
 
-    /* ===== WHATSAPP FLOATING BUTTON ===== */
+    /* ===== WHATSAPP FLOATING BUTTON (unchanged) ===== */
     .whatsapp-float {
       position: fixed;
       right: 24px;
@@ -1033,7 +1157,7 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-      z-index: 998; /* below navbar's 1000, above page content */
+      z-index: 998;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       animation: whatsapp-pop 0.5s ease 1.4s backwards;
     }
@@ -1076,7 +1200,9 @@
       font-size: 14px;
     }
 
-    /* ===== SCROLL-REVEAL ANIMATIONS (CSS only, IntersectionObserver-driven) ===== */
+    footer a { color: rgba(255,255,255,0.8); }
+
+    /* ===== SCROLL-REVEAL ANIMATIONS ===== */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -1086,7 +1212,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-    /* if JS never runs for any reason, content must still be visible */
     .no-js .reveal,
     .reveal.fallback-visible {
       opacity: 1;
@@ -1095,7 +1220,7 @@
   </style>
 </head>
 <body>
-  <!-- Opening Overlay (4-panel split reveal, pure CSS — always completes) -->
+  <!-- Opening Overlay -->
   <div class="opening-overlay" aria-hidden="true">
     <div class="panel panel-tl"></div>
     <div class="panel panel-tr"></div>
@@ -1111,11 +1236,12 @@
   <nav class="navbar">
     <div class="logo">Cloude<span class="logo-accent">Base</span></div>
     <ul class="nav-links" id="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#saas">SaaS Products</a></li>
+      <li><a href="#websites">Websites</a></li>
+      <li><a href="/portfolio/">Portfolio</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#portfolio">Products</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#packages">Pricing</a></li>
-      <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
@@ -1127,8 +1253,13 @@
   <section class="hero" id="hero">
     <div class="particles" id="particles-container"></div>
     <div class="hero-content">
-      <h1>CloudeBase</h1>
-      <p>Websites & Cloud Business Systems for Sri Lankan SMEs</p>
+      <span class="hero-eyebrow">Cloud Solutions for SMEs</span>
+      <h1>Build Your Business Online with <span class="grad">Affordable Cloud Solutions</span></h1>
+      <p>Modern websites, business software, and cloud-hosted SaaS solutions designed for small and medium businesses.</p>
+      <div class="hero-actions">
+        <a href="#saas" class="hero-btn hero-btn--primary">View Products</a>
+        <a href="#contact" class="hero-btn hero-btn--ghost">Contact Us</a>
+      </div>
     </div>
     <div class="scroll-indicator">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1137,102 +1268,134 @@
     </div>
   </section>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>About CloudeBase</h2>
-        <p>CloudeBase provides modern web solutions for small and medium-sized businesses. We help you establish your online presence with professional websites and cloud-based business applications that are affordable, secure, and easy to use.</p>
-        <p>We work under two service categories: one-time website design & development for businesses like restaurants, hotels, salons, pharmacies, tailoring shops, retail stores, educational institutes, travel agencies, and corporate companies — and subscription-based cloud business systems (SaaS) that replace the need to buy, host, and maintain your own software.</p>
-        <p>Our long-term vision is to become a cloud-first software company providing affordable digital solutions for Sri Lankan SMEs, built on reusable multi-tenant platforms so every new customer can be onboarded quickly.</p>
+  <!-- What We Do -->
+  <section class="solutions" id="solutions">
+    <span class="section-eyebrow">What We Do</span>
+    <h2 class="section-title">Cloud Solutions for SMEs</h2>
+    <p class="section-lede">From a first website to fully custom business software, everything we build is designed to run in the cloud and grow with you.</p>
+    <div class="solutions-grid">
+      <div class="solution-card reveal">
+        <div class="solution-icon">☁️</div>
+        <h3>Cloud Business Solutions</h3>
+        <p>We develop modern cloud applications that help businesses manage operations from anywhere.</p>
       </div>
-      <div class="about-image">☁️</div>
-    </div>
-  </section>
-
-  <!-- Products / Our Work -->
-  <section class="portfolio" id="portfolio">
-    <h2 class="section-title">Our Products</h2>
-    <div class="portfolio-grid">
-      <div class="portfolio-card roms reveal">
-        <div class="portfolio-card-content">
-          <h3>ROMS</h3>
-          <p>Restaurant Order Management System — QR ordering, kitchen display, cashier POS, order tracking, menu & staff management, multi-branch support</p>
-        </div>
+      <div class="solution-card reveal">
+        <div class="solution-icon">💻</div>
+        <h3>Business Websites</h3>
+        <p>Professional responsive websites designed to increase your online presence.</p>
       </div>
-      <div class="portfolio-card billing reveal">
-        <div class="portfolio-card-content">
-          <h3>SLPOS</h3>
-          <p>Retail Point of Sale System — billing, inventory, customer & supplier management, barcode support, multi-branch reporting</p>
-        </div>
+      <div class="solution-card reveal">
+        <div class="solution-icon">⚙️</div>
+        <h3>Custom Software</h3>
+        <p>Tailor-made systems developed specifically for your business processes.</p>
       </div>
-      <div class="portfolio-card restaurant reveal">
-        <div class="portfolio-card-content">
-          <h3>Website Design & Development</h3>
-          <p>Responsive business websites for restaurants, hotels, salons, retail stores, institutes, and corporate companies</p>
-        </div>
-      </div>
-      <div class="portfolio-card hosting reveal">
-        <div class="portfolio-card-content">
-          <h3>Cloud Hosting Platform</h3>
-          <p>Scalable infrastructure on Cloudflare Pages, Workers, D1 and R2 with automatic backups and SSL</p>
-        </div>
-      </div>
-      <div class="portfolio-card garment reveal">
-        <div class="portfolio-card-content">
-          <h3>Business Dashboards</h3>
-          <p>Real-time operations dashboards and reporting for growing SMEs</p>
-        </div>
-      </div>
-      <div class="portfolio-card portfolio reveal">
-        <div class="portfolio-card-content">
-          <h3>Portfolio & Landing Pages</h3>
-          <p>Modern portfolio and landing page websites showcasing projects and services</p>
-        </div>
+      <div class="solution-card reveal">
+        <div class="solution-icon">🔒</div>
+        <h3>Hosting &amp; Deployment</h3>
+        <p>Cloudflare-powered hosting with high performance and security.</p>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="services" id="services">
-    <h2 class="section-title">Services</h2>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon">💻</div>
-        <h3>Web Design & Development</h3>
-        <p>Business websites, portfolio websites, and landing pages built with modern, responsive design.</p>
+  <!-- Our SaaS Products -->
+  <section class="saas" id="saas">
+    <span class="section-eyebrow">Our SaaS Products</span>
+    <h2 class="section-title">Ready-to-run business systems</h2>
+    <p class="section-lede">Three working cloud products built for real Sri Lankan businesses — subscribe monthly, no servers to maintain.</p>
+    <div class="saas-grid">
+
+      <div class="product-card reveal">
+        <div class="product-card__icon">🍽</div>
+        <h3>ROMS</h3>
+        <p class="product-card__tagline">Restaurant Operations Management System</p>
+        <div class="product-card__cols">
+          <div>
+            <h4>Perfect For</h4>
+            <ul>
+              <li>Restaurants</li>
+              <li>Cafés</li>
+              <li>Food Courts</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Features</h4>
+            <ul>
+              <li>POS</li>
+              <li>Kitchen Display</li>
+              <li>Order Tracking</li>
+              <li>Sales Reports</li>
+              <li>Cloud Based</li>
+              <li>Multi-device</li>
+            </ul>
+          </div>
+        </div>
+        <a href="#contact" class="product-card__cta">Request a Demo</a>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon">☁️</div>
-        <h3>Cloud Applications (SaaS)</h3>
-        <p>Subscription-based business systems like ROMS and SLPOS — no servers, no maintenance, automatic updates and backups.</p>
+
+      <div class="product-card reveal">
+        <div class="product-card__icon">🛒</div>
+        <h3>SLPOS</h3>
+        <p class="product-card__tagline">Simple POS &amp; Inventory System</p>
+        <div class="product-card__cols">
+          <div>
+            <h4>Perfect For</h4>
+            <ul>
+              <li>Grocery Shops</li>
+              <li>Hardware</li>
+              <li>Retail Stores</li>
+              <li>Service Centers</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Features</h4>
+            <ul>
+              <li>Billing</li>
+              <li>Inventory</li>
+              <li>Moving Average Costing</li>
+              <li>Profit Reports</li>
+              <li>Customer Mgmt</li>
+              <li>Supplier Mgmt</li>
+            </ul>
+          </div>
+        </div>
+        <a href="#contact" class="product-card__cta">Request a Demo</a>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon">⚙️</div>
-        <h3>Business Automation</h3>
-        <p>Customer portals, dashboards, and workflow automation that connect your business systems.</p>
+
+      <div class="product-card reveal">
+        <div class="product-card__icon">🎉</div>
+        <h3>Event Invitation Platform</h3>
+        <p class="product-card__tagline">Digital invitation system</p>
+        <div class="product-card__cols">
+          <div>
+            <h4>Suitable For</h4>
+            <ul>
+              <li>Weddings</li>
+              <li>Corporate Events</li>
+              <li>School Functions</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Features</h4>
+            <ul>
+              <li>Organizer Login</li>
+              <li>Online RSVP</li>
+              <li>QR Invitations</li>
+              <li>Guest Mgmt</li>
+              <li>Shareable Links</li>
+            </ul>
+          </div>
+        </div>
+        <a href="#contact" class="product-card__cta">Request a Demo</a>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon">📊</div>
-        <h3>Dashboards & Reporting</h3>
-        <p>Real-time dashboards and analytics to help you track and grow your business.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🔒</div>
-        <h3>Hosting & Cloud Services</h3>
-        <p>Hosting, website maintenance, cloud migration, and performance optimization on Cloudflare infrastructure.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🚀</div>
-        <h3>Consulting</h3>
-        <p>Guidance on the right digital solution for your business — from a simple website to a full cloud platform.</p>
-      </div>
+
     </div>
   </section>
 
-  <!-- Packages / Pricing -->
-  <section class="packages" id="packages">
+  <!-- Website Packages -->
+  <section class="packages" id="websites">
+    <span class="section-eyebrow">Websites</span>
     <h2 class="section-title">Website Packages</h2>
+    <p class="section-lede">Every package includes a responsive design built around your business — see real working examples in our portfolio.</p>
     <div class="packages-grid">
       <div class="package-card reveal">
         <h3>Starter Website</h3>
@@ -1268,7 +1431,7 @@
       </div>
       <div class="package-card reveal">
         <h3>Professional Website</h3>
-        <p class="package-tagline">Ideal for companies & organizations</p>
+        <p class="package-tagline">Ideal for companies &amp; organizations</p>
         <div class="package-price">LKR 50,000<span>starting from</span></div>
         <ul class="package-features">
           <li>Up to 10 Pages</li>
@@ -1284,7 +1447,7 @@
       </div>
       <div class="package-card reveal">
         <h3>Custom Website</h3>
-        <p class="package-tagline">For unique features & custom designs</p>
+        <p class="package-tagline">For unique features &amp; custom designs</p>
         <div class="package-price">Get a Quote<span>after consultation</span></div>
         <ul class="package-features">
           <li>Tailored feature set</li>
@@ -1293,44 +1456,71 @@
         </ul>
       </div>
     </div>
-    <p class="package-note">1st year hosting is free on all website packages; hosting renews at standard rates from year 2. Domain registration is charged separately if a new domain is required. Optional add-ons available for all packages: additional pages, multi-language support, PWA, blog, image gallery, Google Analytics, advanced SEO, and maintenance packages. ROMS and SLPOS are offered as monthly SaaS subscriptions — get in touch for plan details.</p>
-  </section>
-
-  <!-- Statistics -->
-  <section class="stats">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-number" data-target="15">0</div>
-        <div class="stat-label">Projects Delivered</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="8">0</div>
-        <div class="stat-label">Systems Built</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="99">0</div>
-        <div class="stat-label">Uptime %</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="500">0</div>
-        <div class="stat-label">Users Served</div>
-      </div>
+    <p class="package-note">1st year hosting is free on all website packages; hosting renews at standard rates from year 2. Domain registration is charged separately if a new domain is required. Optional add-ons available for all packages: additional pages, multi-language support, PWA, blog, image gallery, Google Analytics, advanced SEO, and maintenance packages.</p>
+    <div class="package-portfolio-cta reveal">
+      <a href="/portfolio/">See live example websites in our Portfolio →</a>
     </div>
   </section>
 
-  <!-- Process -->
+  <!-- Why Choose CloudeBase -->
+  <section class="why" id="why">
+    <span class="section-eyebrow">Why CloudeBase</span>
+    <h2 class="section-title">Why Choose CloudeBase?</h2>
+    <div class="why-grid">
+      <div class="why-item reveal"><span class="check">✓</span> Affordable Pricing</div>
+      <div class="why-item reveal"><span class="check">✓</span> Cloud Hosted</div>
+      <div class="why-item reveal"><span class="check">✓</span> Mobile Friendly</div>
+      <div class="why-item reveal"><span class="check">✓</span> Secure</div>
+      <div class="why-item reveal"><span class="check">✓</span> Fast</div>
+      <div class="why-item reveal"><span class="check">✓</span> Customizable</div>
+      <div class="why-item reveal"><span class="check">✓</span> Ongoing Support</div>
+      <div class="why-item reveal"><span class="check">✓</span> Designed for Sri Lankan SMEs</div>
+    </div>
+  </section>
+
+  <!-- Industries We Serve -->
+  <section class="industries" id="industries">
+    <span class="section-eyebrow">Who We Work With</span>
+    <h2 class="section-title">Industries We Serve</h2>
+    <div class="industries-grid">
+      <div class="industry-chip reveal"><span class="emoji">🏪</span><span class="label">Retail Shops</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🍴</span><span class="label">Restaurants</span></div>
+      <div class="industry-chip reveal"><span class="emoji">💇</span><span class="label">Salons</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🏥</span><span class="label">Pharmacies</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🏋</span><span class="label">Fitness Centers</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🏫</span><span class="label">Educational Institutes</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🏭</span><span class="label">Manufacturing</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🏨</span><span class="label">Hotels</span></div>
+      <div class="industry-chip reveal"><span class="emoji">🎉</span><span class="label">Event Organizers</span></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>About CloudeBase</h2>
+        <p>CloudeBase provides modern web solutions for small and medium-sized businesses. We help you establish your online presence with professional websites and cloud-based business applications that are affordable, secure, and easy to use.</p>
+        <p>We work under two service categories: one-time website design &amp; development for businesses like restaurants, hotels, salons, pharmacies, tailoring shops, retail stores, educational institutes, travel agencies, and corporate companies — and subscription-based cloud business systems (SaaS) that replace the need to buy, host, and maintain your own software.</p>
+        <p>Our long-term vision is to become a cloud-first software company providing affordable digital solutions for Sri Lankan SMEs, built on reusable multi-tenant platforms so every new customer can be onboarded quickly.</p>
+      </div>
+      <div class="about-image reveal">☁️</div>
+    </div>
+  </section>
+
+  <!-- Development Process -->
   <section class="process" id="process">
-    <h2 class="section-title">Our Process</h2>
+    <span class="section-eyebrow">How We Work</span>
+    <h2 class="section-title">Development Process</h2>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-content">
           <div class="timeline-number">1</div>
-          <h3>Discover</h3>
-          <p>We understand your business, goals, and challenges through in-depth consultation and research.</p>
+          <h3>Requirement Discussion</h3>
+          <p>We understand your business, goals, and challenges through in-depth consultation.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
-
       <div class="timeline-item">
         <div class="timeline-content">
           <div class="timeline-number">2</div>
@@ -1339,28 +1529,33 @@
         </div>
         <div class="timeline-dot"></div>
       </div>
-
       <div class="timeline-item">
         <div class="timeline-content">
           <div class="timeline-number">3</div>
-          <h3>Develop</h3>
+          <h3>Development</h3>
           <p>Our team builds robust, scalable solutions with modern technologies and best practices.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
-
       <div class="timeline-item">
         <div class="timeline-content">
           <div class="timeline-number">4</div>
-          <h3>Deploy</h3>
-          <p>We handle deployment, testing, and optimization to ensure everything runs smoothly.</p>
+          <h3>Testing</h3>
+          <p>Every build is checked across devices and real-world scenarios before it ever reaches you.</p>
         </div>
         <div class="timeline-dot"></div>
       </div>
-
       <div class="timeline-item">
         <div class="timeline-content">
           <div class="timeline-number">5</div>
+          <h3>Deployment</h3>
+          <p>We handle deployment on Cloudflare's global network so your site is fast from day one.</p>
+        </div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-number">6</div>
           <h3>Support</h3>
           <p>Ongoing support and maintenance to keep your systems running at peak performance.</p>
         </div>
@@ -1369,10 +1564,26 @@
     </div>
   </section>
 
-  <!-- Contact / Inquiry Form -->
+  <!-- Technologies -->
+  <section class="tech" id="tech">
+    <span class="section-eyebrow">Built On</span>
+    <h2 class="section-title">Technologies</h2>
+    <div class="tech-badges">
+      <span class="tech-badge reveal">Cloudflare</span>
+      <span class="tech-badge reveal">HTML</span>
+      <span class="tech-badge reveal">CSS</span>
+      <span class="tech-badge reveal">JavaScript</span>
+      <span class="tech-badge reveal">Cloudflare Workers</span>
+      <span class="tech-badge reveal">Cloudflare D1</span>
+      <span class="tech-badge reveal">Cloudflare R2</span>
+      <span class="tech-badge reveal">PWA</span>
+    </div>
+  </section>
+
+  <!-- Contact / Inquiry Form — DO NOT MODIFY: live SMS/WhatsApp/Turnstile gateway -->
   <section class="contact" id="contact">
     <div class="contact-content">
-      <h2>Get in Touch</h2>
+      <h2>Get a Free Consultation</h2>
       <p class="contact-subtitle">Have a project in mind? Let's talk about how we can help.</p>
       
       <form id="inquiry-form">
@@ -1408,7 +1619,7 @@
     </div>
   </section>
 
-  <!-- WhatsApp Floating Button -->
+  <!-- WhatsApp Floating Button — DO NOT MODIFY -->
   <a
     href="https://wa.me/94771699636?text=Hi%20CloudeBase%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services."
     class="whatsapp-float"
@@ -1423,7 +1634,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2024 CloudeBase. All rights reserved. | cloudebase.dpdns.org</p>
+    <p>&copy; 2024 CloudeBase. All rights reserved. | cloudebase.dpdns.org | <a href="/portfolio/">Portfolio</a></p>
   </footer>
 
   <!-- Scripts -->
@@ -1433,9 +1644,9 @@
   <script>
     // ============================================================
     // CORE UX — no external dependencies, always runs.
-    // Mobile nav toggle, anchor scrolling, stat counters, scroll
-    // reveal, and the contact form all live here so a CDN hiccup
-    // can never take down the whole site the way it did before.
+    // Mobile nav toggle, anchor scrolling, scroll reveal, and the
+    // contact form all live here so a CDN hiccup can never take
+    // down the whole site.
     // ============================================================
 
     // ----- Mobile nav toggle -----
@@ -1472,35 +1683,8 @@
     }
     createParticles();
 
-    // ----- Stat counters (IntersectionObserver, no ScrollTrigger needed) -----
-    function animateCounter(element) {
-      const target = parseInt(element.dataset.target, 10);
-      let current = 0;
-      const increment = target / 60;
-      const step = () => {
-        current += increment;
-        if (current >= target) {
-          element.textContent = target;
-        } else {
-          element.textContent = Math.floor(current);
-          requestAnimationFrame(step);
-        }
-      };
-      requestAnimationFrame(step);
-    }
-
+    // ----- Generic scroll-reveal for cards -----
     if ('IntersectionObserver' in window) {
-      const statObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.textContent === '0') {
-            animateCounter(entry.target);
-          }
-        });
-      }, { threshold: 0.4 });
-
-      document.querySelectorAll('.stat-number').forEach((el) => statObserver.observe(el));
-
-      // ----- Generic scroll-reveal for cards -----
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -1512,12 +1696,10 @@
 
       document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
     } else {
-      // very old browsers: just show everything immediately
       document.querySelectorAll('.reveal').forEach((el) => el.classList.add('fallback-visible'));
-      document.querySelectorAll('.stat-number').forEach((el) => animateCounter(el));
     }
 
-    // ----- Contact form submission -----
+    // ----- Contact form submission (DO NOT MODIFY — live inquiry/SMS gateway) -----
     const form = document.getElementById('inquiry-form');
     const formMessage = document.getElementById('form-message');
 

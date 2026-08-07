@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — CloudeBase Website Examples</title>
+<meta name="description" content="Browse real, working example websites CloudeBase builds for restaurants, salons, clinics, shops, and more — see the kind of site we'll build for your business.">
+<link rel="stylesheet" href="assets/css/hub.css">
+<style>
+  /* Brand override so the portfolio matches the CloudeBase main site */
+  :root {
+    --bg: #f8f9fa;
+    --bg-alt: #ffffff;
+    --surface: #ffffff;
+    --surface-alt: #f1f4f9;
+    --line: rgba(10, 20, 40, 0.09);
+    --ink: #1a2332;
+    --muted: #667085;
+    --accent: #0066ff;
+    --accent-warm: #00b8d9;
+  }
+  body { background: var(--bg); }
+  .hub-nav { background: rgba(248,249,250,0.9); border-bottom: 1px solid var(--line); }
+  .hub-nav__brand span { background: var(--accent); }
+  .hub-nav__links a { color: var(--muted); }
+  .hub-nav__links a:hover { color: var(--ink); }
+  .hub-header {
+    background-image:
+      radial-gradient(600px 320px at 82% -10%, rgba(0,102,255,0.10), transparent 70%),
+      radial-gradient(500px 300px at 8% 110%, rgba(0,184,217,0.10), transparent 70%);
+  }
+  .hub-header__eyebrow { color: var(--accent); }
+  .hub-header__eyebrow::before { background: var(--accent); }
+  .hub-header h1 em { color: var(--accent-warm); font-style: normal; }
+  .hub-btn--primary { background: linear-gradient(135deg, var(--accent), var(--accent-warm)); color: #fff; }
+  .hub-btn--primary:hover { background: linear-gradient(135deg, #1a75ff, #12c9e8); }
+  .hub-btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .stat-bar__item strong { color: var(--ink); }
+  .specimen { display: none; } /* internal numbering-device labels not relevant to clients */
+  .hub-section__eyebrow { color: var(--accent); }
+  .template-card { background: var(--surface); border-color: var(--line); }
+  .template-card:hover { box-shadow: 0 18px 40px rgba(0,102,255,0.14); }
+  .template-card__tag { color: var(--accent); }
+  .template-card__link { border-bottom-color: var(--accent-warm); color: var(--ink); }
+  .hub-footer { border-top-color: var(--line); color: var(--muted); }
+  .cta-strip {
+    max-width: 1160px;
+    margin: 0 auto 76px;
+    padding: 48px 56px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0052cc 0%, #0066ff 45%, #00d4ff 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .cta-strip h3 { font-size: 22px; margin: 0 0 6px; }
+  .cta-strip p { margin: 0; color: rgba(255,255,255,0.85); font-size: 14.5px; }
+  .cta-strip a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #0052cc;
+    padding: 13px 26px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14.5px;
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) { .cta-strip { padding: 32px 26px; } }
+</style>
+</head>
+<body>
+
+<nav class="hub-nav">
+  <div class="container hub-nav__inner">
+    <span class="hub-nav__brand"><span></span>CloudeBase Portfolio</span>
+    <div class="hub-nav__links">
+      <a href="/">← Back to CloudeBase</a>
+      <a href="#demos">Examples</a>
+      <a href="/#contact">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hub-header">
+  <div class="container">
+    <p class="hub-header__eyebrow">Website Examples</p>
+    <h1>See the kind of website <em>we'll build</em> for your business.</h1>
+    <p class="lede">Every example below is a real, fully responsive business website — its own layout, colors, and branding, built around the sections your business actually needs: hero, services, gallery, testimonials, pricing, FAQ, and a working contact form.</p>
+    <div class="hub-header__actions">
+      <a href="#demos" class="hub-btn hub-btn--primary">Browse examples</a>
+      <a href="/#websites" class="hub-btn hub-btn--ghost">See website packages</a>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-bar__item"><strong>20</strong><span>Industries covered</span></div>
+      <div class="stat-bar__item"><strong>100%</strong><span>Mobile responsive</span></div>
+      <div class="stat-bar__item"><strong>9</strong><span>Sections per site</span></div>
+      <div class="stat-bar__item"><strong>1</strong><span>Built for your business</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="hub-section" id="demos">
+  <div class="container">
+    <span class="hub-section__eyebrow">Examples</span>
+    <h2>Browse by industry</h2>
+    <p class="lede">Click any example to open the live demo. Don't see your industry below — we'll design it from scratch.</p>
+    <div class="template-grid">
+
+      <a class="template-card" href="fitness-center/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/9945082/pexels-photo-9945082.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Boxing coach working mitts with a member" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Fitness · Boxing gym</span>
+          <h3>Ten Count Boxing &amp; Strength</h3>
+          <p>A concrete-and-brass gym site built around class schedules and membership sign-ups.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="beauty-salon/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/3993467/pexels-photo-3993467.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Colorist applying balayage highlights in the studio" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Beauty · Color studio</span>
+          <h3>Tone &amp; Texture Studio</h3>
+          <p>An elegant salon site with service menus, gallery, and online booking requests.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="pharmacy/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/35285858/pexels-photo-35285858.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Rows of labeled apothecary bottles on shelves" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Pharmacy · Independent &amp; compounding</span>
+          <h3>Millbrook Apothecary</h3>
+          <p>A trustworthy pharmacy site with services, hours, and prescription transfer requests.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="bakery/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/30826792/pexels-photo-30826792.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Artisan sourdough loaves displayed in the bakery" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Bakery · Neighborhood &amp; wholesale</span>
+          <h3>Hearth &amp; Crumb Bakery</h3>
+          <p>A warm bakery site for daily menus, custom cake orders, and wholesale accounts.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="clothing-store/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/15306470/pexels-photo-15306470.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Boutique interior with curated clothing on display" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Clothing boutique</span>
+          <h3>Fold &amp; Form</h3>
+          <p>An editorial boutique site showcasing seasonal collections like a lookbook.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="restaurant/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/19553654/pexels-photo-19553654.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Chefs preparing dishes in the open kitchen" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Restaurant · Fine dining</span>
+          <h3>Ember &amp; Copper</h3>
+          <p>A dim, upscale dining site built around the tasting menu and reservations.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="hotel/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/4947281/pexels-photo-4947281.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Facade of a restored townhouse hotel" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Hospitality · Boutique hotel</span>
+          <h3>Linden House</h3>
+          <p>A boutique hotel site with room types, rates, and a reservation request form.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="medical-clinic/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Physician reviewing a patient's chart in a quiet exam room" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Healthcare · Primary care clinic</span>
+          <h3>Fernwood Family Health</h3>
+          <p>A calm clinic site with services, provider info, and appointment requests.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="dental-clinic/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/6812464/pexels-photo-6812464.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Dentist reviewing a digital scan with a patient" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Healthcare · Dental studio</span>
+          <h3>Meridian Dental Studio</h3>
+          <p>A bright, modern dental site with treatments, pricing, and booking.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="mobile-shop/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/31718639/pexels-photo-31718639.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Technician repairing a phone screen on the open bench" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Phone sales &amp; repair</span>
+          <h3>Circuit &amp; Signal</h3>
+          <p>A dark, modern repair-shop site with pricing, warranty info, and booking.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="computer-store/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/35278544/pexels-photo-35278544.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Technician repairing a computer in the shop" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Computer sales &amp; repair</span>
+          <h3>Kernel &amp; Core</h3>
+          <p>A technical, dark-themed shop site for custom builds, repair, and IT support plans.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="furniture-store/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Woodworker joining a solid wood table leg on the bench" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Furniture &amp; woodworking studio</span>
+          <h3>Grain &amp; Joint</h3>
+          <p>A warm furniture studio site for custom commissions and a photo gallery.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="hardware-store/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/909256/pexels-photo-909256.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Hand tools hung neatly on a pegboard wall" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Hardware &amp; tool supply</span>
+          <h3>Bolt &amp; Beam</h3>
+          <p>A practical hardware store site for services, rentals, and store hours.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="auto-garage/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/3807799/pexels-photo-3807799.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mechanic examining a car on a hydraulic lift" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Automotive · Independent garage</span>
+          <h3>Torque &amp; Bay</h3>
+          <p>A bold garage site for service pricing, booking, and customer reviews.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="real-estate/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/7642008/pexels-photo-7642008.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A real estate agent handing over house keys to a new homeowner" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Real Estate · Residential brokerage</span>
+          <h3>Parcel &amp; Post</h3>
+          <p>A polished brokerage site for listings, valuations, and buyer inquiries.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="flower-shop/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Florist hand-tying a fresh bouquet on the studio workbench" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Florist &amp; flower studio</span>
+          <h3>Petal &amp; Twine</h3>
+          <p>A soft florist site for same-day delivery orders and weekly subscriptions.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="book-store/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Floor-to-ceiling bookshelves inside the shop" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Retail · Independent bookstore</span>
+          <h3>Inkwell &amp; Folio</h3>
+          <p>A classic bookstore site for staff picks, events, and a book club.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="education-center/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tutor working one-on-one with a student at a study table" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Education · Tutoring &amp; test prep</span>
+          <h3>Compass &amp; Chalk</h3>
+          <p>A friendly learning center site for programs, pricing, and diagnostics booking.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="cleaning-service/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/4108715/pexels-photo-4108715.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cleaning technician wiping down a bright kitchen counter" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Home Services · Residential &amp; commercial cleaning</span>
+          <h3>Bristle &amp; Bright</h3>
+          <p>A crisp cleaning company site for service plans, pricing, and booking.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+      <a class="template-card" href="construction-company/index.html">
+        <div class="template-card__accent" style="background:#0066ff;"></div>
+        <div class="template-card__preview">
+          <img src="https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Framing crew working on a residential construction site" loading="lazy">
+        </div>
+        <div class="template-card__body">
+          <span class="template-card__tag">Construction · Residential general contractor</span>
+          <h3>Frame &amp; Ledger</h3>
+          <p>A confident contractor site for project types, estimates, and quote requests.</p>
+          <span class="template-card__link">View example →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="hub-section" style="border-bottom:none; padding-top:0;">
+  <div class="cta-strip reveal">
+    <div>
+      <h3>Don't see your industry?</h3>
+      <p>We'll design a site around your business — same quality, your own colors and content.</p>
+    </div>
+    <a href="/#contact">Get a Free Consultation</a>
+  </div>
+</section>
+
+<footer class="hub-footer">
+  <div class="container hub-footer" style="border:none;padding:0;">
+    <span>A CloudeBase project — <a href="/">back to cloudebase.dpdns.org</a></span>
+    <span>Want a site like this? <a href="/#contact">Get in touch</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
