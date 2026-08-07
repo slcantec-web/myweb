@@ -288,18 +288,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
 .nav {
-  /* height stays fixed via --nav-height, no longer changes in .is-scrolled */
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  will-change: background;
-}
-.nav.is-scrolled {
-  /* removed: height change (was forcing layout every scroll frame) */
-}
-
-/* If your theme relies on the shrink-on-scroll look, fake it with padding
-   on the inner row instead of resizing the whole fixed bar (padding does
-   not affect fixed-position layout the way height does): */
-.nav {
   transition: background 0.3s ease, box-shadow 0.3s ease;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
