@@ -6,18 +6,108 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://cloudebase.dpdns.org/#services</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://cloudebase.dpdns.org/portfolio/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://cloudebase.dpdns.org/#process</loc>
+    <loc>https://cloudebase.dpdns.org/portfolio/restaurant/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cloudebase.dpdns.org/#contact</loc>
+    <loc>https://cloudebase.dpdns.org/portfolio/bakery/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/beauty-salon/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/pharmacy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/fitness-center/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/hotel/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/medical-clinic/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/dental-clinic/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/mobile-shop/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/computer-store/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/furniture-store/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/hardware-store/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/auto-garage/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/real-estate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/flower-shop/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/book-store/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/education-center/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/cleaning-service/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/construction-company/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cloudebase.dpdns.org/portfolio/clothing-store/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

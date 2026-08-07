@@ -152,6 +152,7 @@
       padding: 0 40px;
       z-index: 1000;
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+      contain: layout style;
     }
 
     .logo {
@@ -530,9 +531,11 @@
       padding: 36px 32px;
       border-radius: 15px;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       position: relative;
       overflow: hidden;
+      content-visibility: auto;
+      contain-intrinsic-size: 260px 220px;
     }
 
     .solution-card::before {
@@ -548,13 +551,15 @@
       transition: transform 0.3s ease;
     }
 
-    .solution-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
-    }
+    @media (hover: hover) and (pointer: fine) {
+      .solution-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+      }
 
-    .solution-card:hover::before {
-      transform: scaleX(1);
+      .solution-card:hover::before {
+        transform: scaleX(1);
+      }
     }
 
     .solution-icon {
@@ -594,13 +599,17 @@
       background: var(--light);
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      content-visibility: auto;
+      contain-intrinsic-size: 320px 420px;
     }
 
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 44px rgba(0,102,255,0.14);
-      border-color: rgba(0,102,255,0.25);
+    @media (hover: hover) and (pointer: fine) {
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 44px rgba(0,102,255,0.14);
+        border-color: rgba(0,102,255,0.25);
+      }
     }
 
     .product-card__icon {
@@ -672,7 +681,7 @@
       font-weight: 700;
       font-size: 14px;
       text-decoration: none;
-      transition: all 0.25s ease;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     .product-card__cta:hover {
@@ -698,15 +707,19 @@
       padding: 36px 30px;
       border-radius: 15px;
       text-align: center;
-      transition: all 0.3s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       border: 2px solid transparent;
       position: relative;
+      content-visibility: auto;
+      contain-intrinsic-size: 260px 460px;
     }
 
-    .package-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(0, 102, 255, 0.12);
+    @media (hover: hover) and (pointer: fine) {
+      .package-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--primary);
+        box-shadow: 0 20px 40px rgba(0, 102, 255, 0.12);
+      }
     }
 
     .package-card.featured {
@@ -876,11 +889,15 @@
       text-align: center;
       box-shadow: 0 5px 18px rgba(0,0,0,0.04);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      content-visibility: auto;
+      contain-intrinsic-size: 180px 110px;
     }
 
-    .industry-chip:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 28px rgba(0,102,255,0.12);
+    @media (hover: hover) and (pointer: fine) {
+      .industry-chip:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 28px rgba(0,102,255,0.12);
+      }
     }
 
     .industry-chip .emoji {
@@ -926,6 +943,8 @@
       gap: 60px;
       align-items: center;
       position: relative;
+      content-visibility: auto;
+      contain-intrinsic-size: 900px 220px;
     }
 
     .timeline-item:nth-child(odd) {
@@ -1073,7 +1092,7 @@
       color: white;
       font-size: 16px;
       font-family: inherit;
-      transition: all 0.3s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
       -webkit-appearance: none;
       appearance: none;
     }
@@ -1106,7 +1125,7 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       margin-top: 10px;
     }
 
@@ -1138,6 +1157,13 @@
       background: rgba(244, 67, 54, 0.2);
       color: #ff6b6b;
       display: block;
+    }
+
+    /* Reserve space for the Turnstile widget so it doesn't cause a
+       layout shift / scroll hitch when it finishes loading in. */
+    .cf-turnstile {
+      min-height: 65px;
+      margin-top: 8px;
     }
 
     @media (max-width: 768px) {
@@ -1210,12 +1236,17 @@
     }
     .reveal.in-view {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
     .no-js .reveal,
     .reveal.fallback-visible {
       opacity: 1;
       transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { transition: none; }
     }
   </style>
 </head>
