@@ -3,16 +3,42 @@
  * Covers: sticky nav, mobile menu, smooth scroll, scroll-reveal animation,
  * FAQ accordion, contact form validation, and back-to-top button.
  * Each site's own script.js should call TemplateCore.init() on DOMContentLoaded.
+ *
+ * PERF NOTES (2026-08 pass):
+ * - All scroll handlers are wrapped in rafThrottle() so work happens at most
+ *   once per animation frame instead of once per scroll event (scroll events
+ *   can fire 60-120+ times/sec on trackpads/high-refresh phones).
+ * - Sticky nav no longer changes `height` on scroll (that's a layout/reflow
+ *   trigger). Height is fixed in CSS; only background/box-shadow/padding
+ *   should change in the .is-scrolled state. See the accompanying CSS notes.
  */
 const TemplateCore = (function () {
+  // Run fn at most once per animation frame, always with the latest args.
+  function rafThrottle(fn) {
+    let ticking = false;
+    let lastArgs = null;
+    return function throttled(...args) {
+      lastArgs = args;
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          fn.apply(null, lastArgs);
+          ticking = false;
+        });
+      }
+    };
+  }
+
   function initStickyNav() {
     const nav = document.querySelector('[data-nav]');
     if (!nav) return;
     const trigger = 40;
-    const onScroll = () => {
-      if (window.scrollY > trigger) nav.classList.add('is-scrolled');
-      else nav.classList.remove('is-scrolled');
-    };
+    const onScroll = rafThrottle(() => {
+      const shouldBeScrolled = window.scrollY > trigger;
+      // Avoid needless classList writes (each one can trigger style recalc).
+      if (shouldBeScrolled === nav.classList.contains('is-scrolled')) return;
+      nav.classList.toggle('is-scrolled', shouldBeScrolled);
+    });
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
   }
@@ -90,7 +116,11 @@ const TemplateCore = (function () {
   function initBackToTop() {
     const btn = document.querySelector('[data-back-to-top]');
     if (!btn) return;
-    const onScroll = () => btn.classList.toggle('is-visible', window.scrollY > 600);
+    const onScroll = rafThrottle(() => {
+      const shouldShow = window.scrollY > 600;
+      if (shouldShow === btn.classList.contains('is-visible')) return;
+      btn.classList.toggle('is-visible', shouldShow);
+    });
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
