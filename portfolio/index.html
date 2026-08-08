@@ -71,6 +71,9 @@
     white-space: nowrap;
   }
   @media (max-width: 640px) { .cta-strip { padding: 32px 26px; } }
+  /* Mobile nav toggle bars use --ink, which is already overridden above */
+  .hub-nav__toggle span, .hub-nav__toggle::before, .hub-nav__toggle::after { background: var(--ink); }
+  .hub-nav__links { background: var(--bg); }
 </style>
 </head>
 <body>
@@ -78,11 +81,12 @@
 <nav class="hub-nav">
   <div class="container hub-nav__inner">
     <span class="hub-nav__brand"><span></span>CloudeBase Portfolio</span>
-    <div class="hub-nav__links">
+    <div class="hub-nav__links" data-hub-menu id="hub-nav-links">
       <a href="/">← Back to CloudeBase</a>
       <a href="#demos">Examples</a>
       <a href="/#contact">Get a Quote</a>
     </div>
+    <button class="hub-nav__toggle" data-hub-menu-toggle aria-label="Toggle menu" aria-expanded="false" aria-controls="hub-nav-links"><span></span></button>
   </div>
 </nav>
 
@@ -393,5 +397,27 @@
   </div>
 </footer>
 
+<script>
+  // Mobile hamburger menu for the Portfolio Hub nav (previously missing).
+  (function () {
+    var toggle = document.querySelector('[data-hub-menu-toggle]');
+    var menu = document.querySelector('[data-hub-menu]');
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = menu.classList.toggle('is-open');
+      toggle.classList.toggle('is-active', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    menu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        menu.classList.remove('is-open');
+        toggle.classList.remove('is-active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
 </body>
 </html>

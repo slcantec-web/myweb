@@ -45,7 +45,58 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-warm); o
 .hub-nav__links { display: flex; gap: 28px; }
 .hub-nav__links a { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; transition: color 0.2s ease; }
 .hub-nav__links a:hover { color: var(--ink); }
-@media (max-width: 640px) { .hub-nav__links { display: none; } }
+
+/* ---------- Mobile nav toggle ---------- */
+.hub-nav__toggle {
+  display: none;
+  background: none;
+  border: none;
+  width: 44px;
+  height: 44px;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+.hub-nav__toggle span,
+.hub-nav__toggle::before,
+.hub-nav__toggle::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.hub-nav__toggle::before { top: 14px; }
+.hub-nav__toggle span { top: 21px; }
+.hub-nav__toggle::after { bottom: 14px; }
+.hub-nav__toggle.is-active::before { transform: translateY(7px) rotate(45deg); }
+.hub-nav__toggle.is-active::after { transform: translateY(-7px) rotate(-45deg); }
+.hub-nav__toggle.is-active span { opacity: 0; }
+
+@media (max-width: 640px) {
+  .hub-nav__toggle { display: block; }
+  .hub-nav__links {
+    flex-direction: column;
+    gap: 0;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 0 24px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .hub-nav__links.is-open { max-height: 300px; padding: 8px 24px 20px; }
+  .hub-nav__links a { padding: 14px 0; border-top: 1px solid var(--line); }
+  .hub-nav__links a:first-child { border-top: none; }
+}
 
 /* ---------- Hero ---------- */
 .hub-header {
