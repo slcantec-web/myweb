@@ -99,7 +99,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 [data-reveal-delay="3"] { transition-delay: 0.3s; }
 
 /* ---------- Nav ---------- */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-height); display: flex; align-items: center; background: rgba(248, 236, 221, 0.88); backdrop-filter: blur(6px); transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-height); display: flex; align-items: center; background: rgba(248, 236, 221, 0.88); transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease; }
 .nav.is-scrolled { background: rgba(248, 236, 221, 0.97); box-shadow: 0 1px 0 var(--line); height: 66px; }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 .nav__brand { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.01em; color: var(--espresso); }
@@ -298,29 +298,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding-top: 2px;
   padding-bottom: 2px;
 }
-
-/* =========================================================
-   HAMBURGER TAP-TARGET PATCH — enlarges the mobile menu button
-   to a proper 44x44px tap target with thicker, more visible
-   bars, keeping the open/close (X) animation aligned.
-   ========================================================= */
-.nav__toggle {
-  width: 44px !important;
-  height: 44px !important;
-}
-.nav__toggle span,
-.nav__toggle::before,
-.nav__toggle::after {
-  left: 8px !important;
-  width: 28px !important;
-  height: 3px !important;
-  border-radius: 2px !important;
-}
-.nav__toggle::before { top: 12px !important; }
-.nav__toggle span { top: 20.5px !important; }
-.nav__toggle::after { bottom: 12px !important; }
-.nav__toggle.is-active::before { transform: translateY(8.5px) rotate(45deg) !important; }
-.nav__toggle.is-active::after { transform: translateY(-8.5px) rotate(-45deg) !important; }
 
 /* =========================================================
    HAMBURGER TAP-TARGET PATCH — enlarges the mobile menu button
