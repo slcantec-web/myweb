@@ -398,16 +398,41 @@
 </footer>
 
 <script>
-  // Mobile hamburger menu for the Portfolio Hub nav (previously missing).
+  // Mobile hamburger menu for the Portfolio Hub nav.
   (function () {
     var toggle = document.querySelector('[data-hub-menu-toggle]');
     var menu = document.querySelector('[data-hub-menu]');
     if (!toggle || !menu) return;
 
+    var savedScrollY = 0;
+
+    function lockScroll() {
+      savedScrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + savedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
+
+    function unlockScroll() {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, savedScrollY);
+    }
+
     toggle.addEventListener('click', function () {
       var isOpen = menu.classList.toggle('is-open');
       toggle.classList.toggle('is-active', isOpen);
       toggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        lockScroll();
+      } else {
+        unlockScroll();
+      }
     });
 
     menu.querySelectorAll('a').forEach(function (link) {
@@ -415,6 +440,7 @@
         menu.classList.remove('is-open');
         toggle.classList.remove('is-active');
         toggle.setAttribute('aria-expanded', 'false');
+        unlockScroll();
       });
     });
   })();
