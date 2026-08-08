@@ -1,0 +1,313 @@
+diff --git a/portfolio/assets/css/hub.css b/portfolio/assets/css/hub.css
+index dccbe5e..d6b03ce 100644
+--- a/portfolio/assets/css/hub.css
++++ b/portfolio/assets/css/hub.css
+@@ -86,14 +86,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-warm); o
+     top: 64px;
+     left: 0;
+     right: 0;
++    bottom: 0;
+     background: var(--bg);
+     border-bottom: 1px solid var(--line);
+     padding: 0 24px;
+-    max-height: 0;
+-    overflow: hidden;
+-    transition: max-height 0.3s ease;
++    max-height: none;
++    overflow-y: auto;
++    -webkit-overflow-scrolling: touch;
++    transform: translateY(-8px);
++    opacity: 0;
++    visibility: hidden;
++    transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s;
++  }
++  .hub-nav__links.is-open {
++    transform: translateY(0);
++    opacity: 1;
++    visibility: visible;
++    padding: 8px 24px 28px;
+   }
+-  .hub-nav__links.is-open { max-height: 300px; padding: 8px 24px 20px; }
+   .hub-nav__links a { padding: 14px 0; border-top: 1px solid var(--line); }
+   .hub-nav__links a:first-child { border-top: none; }
+ }
+diff --git a/portfolio/auto-garage/assets/css/style.css b/portfolio/auto-garage/assets/css/style.css
+index 246c1a4..db3dacb 100644
+--- a/portfolio/auto-garage/assets/css/style.css
++++ b/portfolio/auto-garage/assets/css/style.css
+@@ -289,9 +289,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/bakery/assets/css/style.css b/portfolio/bakery/assets/css/style.css
+index 150721f..882e294 100644
+--- a/portfolio/bakery/assets/css/style.css
++++ b/portfolio/bakery/assets/css/style.css
+@@ -290,9 +290,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/beauty-salon/assets/css/style.css b/portfolio/beauty-salon/assets/css/style.css
+index 99c11cf..2020dab 100644
+--- a/portfolio/beauty-salon/assets/css/style.css
++++ b/portfolio/beauty-salon/assets/css/style.css
+@@ -289,9 +289,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/book-store/assets/css/style.css b/portfolio/book-store/assets/css/style.css
+index f159c68..830524a 100644
+--- a/portfolio/book-store/assets/css/style.css
++++ b/portfolio/book-store/assets/css/style.css
+@@ -318,9 +318,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+    not affect fixed-position layout the way height does): */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/cleaning-service/assets/css/style.css b/portfolio/cleaning-service/assets/css/style.css
+index b977289..ba55351 100644
+--- a/portfolio/cleaning-service/assets/css/style.css
++++ b/portfolio/cleaning-service/assets/css/style.css
+@@ -320,9 +320,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+    not affect fixed-position layout the way height does): */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/clothing-store/assets/css/style.css b/portfolio/clothing-store/assets/css/style.css
+index 3196760..1718386 100644
+--- a/portfolio/clothing-store/assets/css/style.css
++++ b/portfolio/clothing-store/assets/css/style.css
+@@ -285,9 +285,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/computer-store/assets/css/style.css b/portfolio/computer-store/assets/css/style.css
+index 7b0829c..e4396a2 100644
+--- a/portfolio/computer-store/assets/css/style.css
++++ b/portfolio/computer-store/assets/css/style.css
+@@ -291,9 +291,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/construction-company/assets/css/style.css b/portfolio/construction-company/assets/css/style.css
+index f9efb85..d7410fe 100644
+--- a/portfolio/construction-company/assets/css/style.css
++++ b/portfolio/construction-company/assets/css/style.css
+@@ -303,9 +303,6 @@ main { counter-reset: phase; }
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/dental-clinic/assets/css/style.css b/portfolio/dental-clinic/assets/css/style.css
+index a945efd..db004d9 100644
+--- a/portfolio/dental-clinic/assets/css/style.css
++++ b/portfolio/dental-clinic/assets/css/style.css
+@@ -287,9 +287,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/education-center/assets/css/style.css b/portfolio/education-center/assets/css/style.css
+index c104783..7580dbc 100644
+--- a/portfolio/education-center/assets/css/style.css
++++ b/portfolio/education-center/assets/css/style.css
+@@ -312,9 +312,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/fitness-center/assets/css/style.css b/portfolio/fitness-center/assets/css/style.css
+index a8481c7..4eae26d 100644
+--- a/portfolio/fitness-center/assets/css/style.css
++++ b/portfolio/fitness-center/assets/css/style.css
+@@ -518,9 +518,6 @@ main { counter-reset: round; }
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/flower-shop/assets/css/style.css b/portfolio/flower-shop/assets/css/style.css
+index fe160c1..6fab6b7 100644
+--- a/portfolio/flower-shop/assets/css/style.css
++++ b/portfolio/flower-shop/assets/css/style.css
+@@ -291,9 +291,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/furniture-store/assets/css/style.css b/portfolio/furniture-store/assets/css/style.css
+index b89e054..f47dbc6 100644
+--- a/portfolio/furniture-store/assets/css/style.css
++++ b/portfolio/furniture-store/assets/css/style.css
+@@ -290,9 +290,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/hardware-store/assets/css/style.css b/portfolio/hardware-store/assets/css/style.css
+index a8e1889..b9ae742 100644
+--- a/portfolio/hardware-store/assets/css/style.css
++++ b/portfolio/hardware-store/assets/css/style.css
+@@ -289,9 +289,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/hotel/assets/css/style.css b/portfolio/hotel/assets/css/style.css
+index 6bccb92..c8d0ce6 100644
+--- a/portfolio/hotel/assets/css/style.css
++++ b/portfolio/hotel/assets/css/style.css
+@@ -305,9 +305,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/medical-clinic/assets/css/style.css b/portfolio/medical-clinic/assets/css/style.css
+index ed95aca..4ecb37e 100644
+--- a/portfolio/medical-clinic/assets/css/style.css
++++ b/portfolio/medical-clinic/assets/css/style.css
+@@ -319,9 +319,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/mobile-shop/assets/css/style.css b/portfolio/mobile-shop/assets/css/style.css
+index 9233c93..4804f75 100644
+--- a/portfolio/mobile-shop/assets/css/style.css
++++ b/portfolio/mobile-shop/assets/css/style.css
+@@ -296,9 +296,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/pharmacy/assets/css/style.css b/portfolio/pharmacy/assets/css/style.css
+index 5d64f80..4d1553b 100644
+--- a/portfolio/pharmacy/assets/css/style.css
++++ b/portfolio/pharmacy/assets/css/style.css
+@@ -292,9 +292,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/real-estate/assets/css/style.css b/portfolio/real-estate/assets/css/style.css
+index 7b56d53..be5653d 100644
+--- a/portfolio/real-estate/assets/css/style.css
++++ b/portfolio/real-estate/assets/css/style.css
+@@ -292,9 +292,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
+diff --git a/portfolio/restaurant/assets/css/style.css b/portfolio/restaurant/assets/css/style.css
+index 9766eee..4b246ef 100644
+--- a/portfolio/restaurant/assets/css/style.css
++++ b/portfolio/restaurant/assets/css/style.css
+@@ -286,9 +286,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
+ /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
+ .nav {
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+-  -webkit-transform: translateZ(0);
+-  transform: translateZ(0);
+-  will-change: transform, background;
+ }
+ .nav.is-scrolled {
+   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
