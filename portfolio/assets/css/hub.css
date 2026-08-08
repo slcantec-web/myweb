@@ -86,14 +86,24 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-warm); o
     top: 64px;
     left: 0;
     right: 0;
+    bottom: 0;
     background: var(--bg);
     border-bottom: 1px solid var(--line);
     padding: 0 24px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    max-height: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s;
   }
-  .hub-nav__links.is-open { max-height: 300px; padding: 8px 24px 20px; }
+  .hub-nav__links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    padding: 8px 24px 28px;
+  }
   .hub-nav__links a { padding: 14px 0; border-top: 1px solid var(--line); }
   .hub-nav__links a:first-child { border-top: none; }
 }

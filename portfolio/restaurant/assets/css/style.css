@@ -286,9 +286,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ---- 1 & 2: stop animating nav height, keep backdrop-filter constant ---- */
 .nav {
   transition: background 0.3s ease, box-shadow 0.3s ease;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform, background;
 }
 .nav.is-scrolled {
   height: var(--nav-height) !important; /* actually overrides the earlier height: 64px rule */
