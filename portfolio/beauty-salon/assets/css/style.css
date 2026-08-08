@@ -323,3 +323,50 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .nav__toggle::after { bottom: 12px !important; }
 .nav__toggle.is-active::before { transform: translateY(8.5px) rotate(45deg) !important; }
 .nav__toggle.is-active::after { transform: translateY(-8.5px) rotate(-45deg) !important; }
+
+/* =========================================================
+   HAMBURGER TAP-TARGET PATCH — enlarges the mobile menu button
+   to a proper 44x44px tap target with thicker, more visible
+   bars, keeping the open/close (X) animation aligned.
+   ========================================================= */
+.nav__toggle {
+  width: 44px !important;
+  height: 44px !important;
+}
+.nav__toggle span,
+.nav__toggle::before,
+.nav__toggle::after {
+  left: 8px !important;
+  width: 28px !important;
+  height: 3px !important;
+  border-radius: 2px !important;
+}
+.nav__toggle::before { top: 12px !important; }
+.nav__toggle span { top: 20.5px !important; }
+.nav__toggle::after { bottom: 12px !important; }
+.nav__toggle.is-active::before { transform: translateY(8.5px) rotate(45deg) !important; }
+.nav__toggle.is-active::after { transform: translateY(-8.5px) rotate(-45deg) !important; }
+
+/* =========================================================
+   MOBILE MENU FIT PATCH — tightens the open mobile-menu panel's
+   spacing so all links + CTA fit on-screen without an internal
+   scroll on shorter phones.
+   ========================================================= */
+@media (max-width: 720px) {
+  .nav__menu.is-open {
+    padding: 20px 24px 28px !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+  }
+  .nav__menu.is-open li {
+    width: 100%;
+  }
+  .nav__menu.is-open li a {
+    display: block !important;
+    padding: 12px 0 !important;
+  }
+  .nav__menu.is-open li a.nav__cta {
+    display: inline-flex !important;
+    margin-top: 8px;
+  }
+}
