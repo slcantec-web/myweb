@@ -323,3 +323,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .nav__toggle::after { bottom: 12px !important; }
 .nav__toggle.is-active::before { transform: translateY(8.5px) rotate(45deg) !important; }
 .nav__toggle.is-active::after { transform: translateY(-8.5px) rotate(-45deg) !important; }
+
+/* =========================================================
+   MOBILE MENU FIT PATCH — the open hamburger panel used
+   padding:40px + gap:24px between nav items, which overflows
+   the viewport on shorter phones and forces an internal scroll
+   before all links are visible. Tightens spacing so the full
+   menu (links + CTA) fits on-screen without scrolling.
+   ========================================================= */
+@media (max-width: 720px) {
+  .nav__menu.is-open {
+    padding: 20px 24px 28px !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+  }
+  .nav__menu.is-open li {
+    width: 100%;
+  }
+  .nav__menu.is-open li a {
+    display: block !important;
+    padding: 12px 0 !important;
+  }
+  .nav__menu.is-open li a.nav__cta {
+    display: inline-flex !important;
+    margin-top: 8px;
+  }
+}
