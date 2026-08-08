@@ -35,8 +35,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-warm); o
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(14, 15, 17, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(14, 15, 17, 0.92);
   border-bottom: 1px solid var(--line);
 }
 .hub-nav__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
