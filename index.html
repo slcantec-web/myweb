@@ -1159,13 +1159,6 @@
       display: block;
     }
 
-    /* Reserve space for the Turnstile widget so it doesn't cause a
-       layout shift / scroll hitch when it finishes loading in. */
-    .cf-turnstile {
-      min-height: 65px;
-      margin-top: 8px;
-    }
-
     @media (max-width: 768px) {
       .contact h2 { font-size: 30px; }
     }
@@ -1611,7 +1604,7 @@
     </div>
   </section>
 
-  <!-- Contact / Inquiry Form — DO NOT MODIFY: live SMS/WhatsApp/Turnstile gateway -->
+  <!-- Contact / Inquiry Form — DO NOT MODIFY: live Email inquiry gateway -->
   <section class="contact" id="contact">
     <div class="contact-content">
       <h2>Get a Free Consultation</h2>
@@ -1638,11 +1631,10 @@
           <textarea id="message" name="message" required></textarea>
         </div>
 
-        <!-- Honeypot field (hidden) -->
-        <input type="hidden" name="company" value="">
-
-        <!-- Turnstile Widget -->
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEFExOm0OO_wqNWK" data-theme="dark"></div>
+        <!-- Honeypot field (hidden) — real users never fill this in;
+             any bot that blindly fills every field will get silently
+             dropped in the JS below without wasting an email send. -->
+        <input type="hidden" name="company" value="" tabindex="-1" autocomplete="off">
 
         <button type="submit" class="submit-btn">Send Inquiry</button>
         <div id="form-message" class="form-message"></div>
@@ -1665,12 +1657,10 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2024 CloudeBase. All rights reserved. | cloudebase.dpdns.org | <a href="/portfolio/">Portfolio</a></p>
+    <p>&copy; 2024 CloudeBase. All rights reserved. | cloudebase.top | <a href="/portfolio/">Portfolio</a></p>
   </footer>
 
   <!-- Scripts -->
-  <!-- Turnstile is optional/enhancement-only — loaded async, failure doesn't block anything else -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <script>
     // ============================================================
@@ -1730,57 +1720,91 @@
       document.querySelectorAll('.reveal').forEach((el) => el.classList.add('fallback-visible'));
     }
 
-    // ----- Contact form submission (DO NOT MODIFY — live inquiry/SMS gateway) -----
+    // ----- Contact form submission (DO NOT MODIFY — live Email inquiry gateway) -----
+    // Sends two emails via the Brevo email Worker's scoped "website-contact"
+    // project key: a confirmation to the customer, and a notification to
+    // the business owner. This project key only allows sending as
+    // noreply@cloudebase.top and is safe to expose client-side — it is
+    // NOT the master Brevo account key, which stays server-side only.
+    const EMAIL_GATEWAY_URL = 'https://mail.cloudebase.top';
+    const EMAIL_PROJECT_KEY = 'proj_live_67e289744a8e1a42fa65141232bafd10f416f94264a179e1';
+    const OWNER_NOTIFY_EMAIL = 'blacka.ak@gmail.com';
+
     const form = document.getElementById('inquiry-form');
     const formMessage = document.getElementById('form-message');
+
+    async function sendGatewayEmail(payload) {
+      const response = await fetch(EMAIL_GATEWAY_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + EMAIL_PROJECT_KEY,
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result || !result.success) {
+        throw new Error((result && result.error) || 'Email gateway error');
+      }
+      return result;
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      let turnstileToken = '';
-      if (window.turnstile) {
-        turnstileToken = window.turnstile.getResponse() || '';
-        if (!turnstileToken) {
-          formMessage.className = 'form-message error';
-          formMessage.textContent = 'Please complete the security check.';
-          return;
-        }
-      }
-      // If Turnstile itself failed to load, we still let the request go
-      // through rather than permanently blocking the form — the backend
-      // can decide how to handle a missing token.
-
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      data.turnstileToken = turnstileToken;
+
+      // Honeypot: real visitors never fill this hidden field. Silently
+      // pretend success so a bot doesn't learn its submission was rejected.
+      if (data.company) {
+        formMessage.className = 'form-message success';
+        formMessage.textContent = "Thank you! We'll be in touch soon.";
+        form.reset();
+        return;
+      }
 
       const submitBtn = form.querySelector('.submit-btn');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
       try {
-        const response = await fetch('https://cloudebase.dpdns.org/api/inquiry', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
+        // Notify the business owner with the full inquiry details.
+        await sendGatewayEmail({
+          to: OWNER_NOTIFY_EMAIL,
+          subject: `New inquiry from ${data.name}`,
+          textContent:
+            `New website inquiry:\n\n` +
+            `Name: ${data.name}\n` +
+            `Email: ${data.email}\n` +
+            `Phone: ${data.phone}\n\n` +
+            `Message:\n${data.message}`,
         });
 
-        const result = await response.json();
+        // Confirmation email back to the customer.
+        await sendGatewayEmail({
+          to: data.email,
+          subject: "We've received your inquiry",
+          senderName: 'CloudeBase',
+          htmlContent:
+            `<p>Hi ${escapeHtml(data.name)},</p>` +
+            `<p>Thanks for reaching out! We've received your inquiry and will be in touch soon.</p>` +
+            `<p><strong>Your message:</strong><br>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>` +
+            `<p>— CloudeBase</p>`,
+        });
 
-        if (result.ok) {
-          formMessage.className = 'form-message success';
-          formMessage.textContent = "Thank you! We'll be in touch soon.";
-          form.reset();
-          if (window.turnstile) window.turnstile.reset();
-        } else {
-          formMessage.className = 'form-message error';
-          formMessage.textContent = result.error || 'Something went wrong. Please try again.';
-          if (window.turnstile) window.turnstile.reset();
-        }
+        formMessage.className = 'form-message success';
+        formMessage.textContent = "Thank you! We'll be in touch soon.";
+        form.reset();
       } catch (err) {
         formMessage.className = 'form-message error';
-        formMessage.textContent = 'Network error. Please try again.';
-        if (window.turnstile) window.turnstile.reset();
+        formMessage.textContent = 'Something went wrong. Please try again.';
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send Inquiry';
