@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cloudebase.dpdns.org/sitemap.xml
+Sitemap: https://cloudebase.top/sitemap.xml
