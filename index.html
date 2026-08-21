@@ -288,21 +288,13 @@
       overflow: hidden;
     }
 
-    .particle {
+    #particles-canvas {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--primary);
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 20s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(100px, -100px) rotate(90deg); }
-      50% { transform: translate(-100px, -200px) rotate(180deg); }
-      75% { transform: translate(-100px, 100px) rotate(270deg); }
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .hero-content {
@@ -1280,7 +1272,7 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
-    <div class="particles" id="particles-container"></div>
+    <canvas class="particles" id="particles-canvas"></canvas>
     <div class="hero-content">
       <span class="hero-eyebrow">Cloud Solutions for SMEs</span>
       <h1>Build Your Business Online with <span class="grad">Affordable Cloud Solutions</span></h1>
@@ -1693,21 +1685,145 @@
       });
     });
 
-    // ----- Particles (decorative) -----
-    function createParticles() {
-      const container = document.getElementById('particles-container');
-      const particleCount = 20;
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (15 + Math.random() * 15) + 's';
-        container.appendChild(particle);
+    // ----- Particle network (decorative, canvas-based) -----
+    // Dots drift slowly; any two dots within LINK_DISTANCE get a line
+    // drawn between them, fading out as they get farther apart.
+    (function initParticleNetwork() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      const heroSection = canvas.closest('.hero') || canvas.parentElement.parentElement;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const DOT_COLOR = '0, 102, 255';   // matches --primary, used as rgba()
+      const LINK_DISTANCE = 130;
+      const DOT_RADIUS = 2;
+      const SPEED = 0.45;
+      const DRIFT = 0.02;   // per-frame random nudge so paths curve instead of going straight
+      const MAX_SPEED = 0.8;
+      const RESHUFFLE_INTERVAL = 90; // frames (~1.5s @60fps) between giving a few dots a fresh random kick
+      const RESHUFFLE_COUNT = 6;     // how many particles get re-kicked each interval
+
+      let width, height, dpr, particles, animId;
+      let frameCount = 0;
+
+      function particleCountFor(w) {
+        // Fewer particles on small screens so it stays light and uncluttered.
+        if (w < 480) return 22;
+        if (w < 900) return 40;
+        return 60;
       }
-    }
-    createParticles();
+
+      function resize() {
+        const rect = heroSection.getBoundingClientRect();
+        dpr = window.devicePixelRatio || 1;
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function makeParticles() {
+        const count = particleCountFor(width);
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * SPEED,
+          vy: (Math.random() - 0.5) * SPEED,
+        }));
+      }
+
+      function step() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Move + draw dots
+        for (const p of particles) {
+          // Tiny random nudges each frame make the path curve gently over
+          // time instead of bouncing back and forth in perfectly straight
+          // lines — reads as a slow, buttery drift.
+          p.vx += (Math.random() - 0.5) * DRIFT;
+          p.vy += (Math.random() - 0.5) * DRIFT;
+
+          const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+          if (speed > MAX_SPEED) {
+            p.vx = (p.vx / speed) * MAX_SPEED;
+            p.vy = (p.vy / speed) * MAX_SPEED;
+          }
+
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, DOT_RADIUS, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${DOT_COLOR}, 0.5)`;
+          ctx.fill();
+        }
+
+        // Every so often, give a handful of random particles a fresh
+        // random velocity kick. This is what actually makes different
+        // dots become neighbors over time — pure drift alone tends to
+        // keep the same particles clustered with the same neighbors.
+        frameCount++;
+        if (frameCount % RESHUFFLE_INTERVAL === 0) {
+          for (let k = 0; k < RESHUFFLE_COUNT; k++) {
+            const p = particles[Math.floor(Math.random() * particles.length)];
+            p.vx = (Math.random() - 0.5) * SPEED * 2;
+            p.vy = (Math.random() - 0.5) * SPEED * 2;
+          }
+        }
+
+        // Link distance "breathes" slightly over time, so connections
+        // right at the edge of range flicker in and out rather than the
+        // network looking perfectly static frame to frame.
+        const breathingLinkDistance =
+          LINK_DISTANCE + Math.sin(frameCount / 70) * 12;
+
+        // Draw links between nearby dots
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < breathingLinkDistance) {
+              const opacity = 0.18 * (1 - dist / breathingLinkDistance);
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(${DOT_COLOR}, ${opacity})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        animId = requestAnimationFrame(step);
+      }
+
+      resize();
+      makeParticles();
+
+      if (prefersReducedMotion) {
+        // Draw a single static frame instead of animating continuously.
+        step();
+        cancelAnimationFrame(animId);
+      } else {
+        step();
+      }
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          resize();
+          makeParticles();
+        }, 150);
+      });
+    })();
 
     // ----- Generic scroll-reveal for cards -----
     if ('IntersectionObserver' in window) {
