@@ -524,15 +524,28 @@
     }
 
     .solution-card {
-      background: white;
-      padding: 36px 32px;
       border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       position: relative;
       overflow: hidden;
       content-visibility: auto;
-      contain-intrinsic-size: 260px 220px;
+      contain-intrinsic-size: 260px 260px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: normal;
+    }
+
+    .solution-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,20,40,0.0) 0%, rgba(10,20,40,0.05) 60%, rgba(8,12,28,0.25) 100%);
+      z-index: 0;
     }
 
     .solution-card::before {
@@ -546,12 +559,13 @@
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s ease;
+      z-index: 2;
     }
 
     @media (hover: hover) and (pointer: fine) {
       .solution-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 102, 255, 0.25);
       }
 
       .solution-card:hover::before {
@@ -559,21 +573,28 @@
       }
     }
 
-    .solution-icon {
-      font-size: 40px;
-      margin-bottom: 15px;
+    .solution-card__text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      background: rgba(6, 10, 24, 0.78);
+      backdrop-filter: blur(3px);
+      padding: 20px 24px;
+      box-sizing: border-box;
     }
 
     .solution-card h3 {
       font-size: 19px;
-      margin-bottom: 12px;
-      color: var(--primary);
+      margin-bottom: 10px;
+      color: #fff;
     }
 
     .solution-card p {
       font-size: 14px;
-      color: var(--text-light);
-      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
     }
 
     /* ===== SAAS PRODUCTS ===== */
@@ -880,33 +901,59 @@
     }
 
     .industry-chip {
-      background: white;
       border-radius: 14px;
-      padding: 24px 18px;
+      padding: 28px 18px;
       text-align: center;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.15);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       content-visibility: auto;
-      contain-intrinsic-size: 180px 110px;
+      contain-intrinsic-size: 180px 120px;
+      position: relative;
+      overflow: hidden;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .industry-chip::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,20,40,0.0) 0%, rgba(8,12,28,0.15) 100%);
+      z-index: 0;
+    }
+
+    .industry-chip > * {
+      position: relative;
+      z-index: 1;
     }
 
     @media (hover: hover) and (pointer: fine) {
       .industry-chip:hover {
         transform: translateY(-4px);
-        box-shadow: 0 14px 28px rgba(0,102,255,0.12);
+        box-shadow: 0 14px 28px rgba(0,102,255,0.2);
       }
     }
 
     .industry-chip .emoji {
-      font-size: 30px;
+      font-size: 28px;
       display: block;
       margin-bottom: 10px;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4));
     }
 
     .industry-chip span.label {
       font-size: 14px;
       font-weight: 600;
-      color: var(--text);
+      color: #fff;
+      background: rgba(6, 10, 24, 0.7);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(2px);
     }
 
     /* ===== PROCESS ===== */
@@ -1295,25 +1342,29 @@
     <h2 class="section-title">Cloud Solutions for SMEs</h2>
     <p class="section-lede">From a first website to fully custom business software, everything we build is designed to run in the cloud and grow with you.</p>
     <div class="solutions-grid">
-      <div class="solution-card reveal">
-        <div class="solution-icon">☁️</div>
-        <h3>Cloud Business Solutions</h3>
-        <p>We develop modern cloud applications that help businesses manage operations from anywhere.</p>
+      <div class="solution-card reveal" style="background-image: url('https://images.pexels.com/photos/4508751/pexels-photo-4508751.jpeg?auto=compress&cs=tinysrgb&w=800');">
+        <div class="solution-card__text">
+          <h3>Cloud Business Solutions</h3>
+          <p>We develop modern cloud applications that help businesses manage operations from anywhere.</p>
+        </div>
       </div>
-      <div class="solution-card reveal">
-        <div class="solution-icon">💻</div>
-        <h3>Business Websites</h3>
-        <p>Professional responsive websites designed to increase your online presence.</p>
+      <div class="solution-card reveal" style="background-image: url('https://images.pexels.com/photos/3913016/pexels-photo-3913016.jpeg?auto=compress&cs=tinysrgb&w=800');">
+        <div class="solution-card__text">
+          <h3>Business Websites</h3>
+          <p>Professional responsive websites designed to increase your online presence.</p>
+        </div>
       </div>
-      <div class="solution-card reveal">
-        <div class="solution-icon">⚙️</div>
-        <h3>Custom Software</h3>
-        <p>Tailor-made systems developed specifically for your business processes.</p>
+      <div class="solution-card reveal" style="background-image: url('https://images.pexels.com/photos/4439901/pexels-photo-4439901.jpeg?auto=compress&cs=tinysrgb&w=800');">
+        <div class="solution-card__text">
+          <h3>Custom Software</h3>
+          <p>Tailor-made systems developed specifically for your business processes.</p>
+        </div>
       </div>
-      <div class="solution-card reveal">
-        <div class="solution-icon">🔒</div>
-        <h3>Hosting &amp; Deployment</h3>
-        <p>Cloudflare-powered hosting with high performance and security.</p>
+      <div class="solution-card reveal" style="background-image: url('https://images.pexels.com/photos/5380618/pexels-photo-5380618.jpeg?auto=compress&cs=tinysrgb&w=800');">
+        <div class="solution-card__text">
+          <h3>Hosting &amp; Deployment</h3>
+          <p>Cloudflare-powered hosting with high performance and security.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1504,15 +1555,15 @@
     <span class="section-eyebrow">Who We Work With</span>
     <h2 class="section-title">Industries We Serve</h2>
     <div class="industries-grid">
-      <div class="industry-chip reveal"><span class="emoji">🏪</span><span class="label">Retail Shops</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🍴</span><span class="label">Restaurants</span></div>
-      <div class="industry-chip reveal"><span class="emoji">💇</span><span class="label">Salons</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🏥</span><span class="label">Pharmacies</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🏋</span><span class="label">Fitness Centers</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🏫</span><span class="label">Educational Institutes</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🏭</span><span class="label">Manufacturing</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🏨</span><span class="label">Hotels</span></div>
-      <div class="industry-chip reveal"><span class="emoji">🎉</span><span class="label">Event Organizers</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/30848031/pexels-photo-30848031.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Retail Shops</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/19553654/pexels-photo-19553654.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Restaurants</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/3065171/pexels-photo-3065171.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Salons</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/6074000/pexels-photo-6074000.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Pharmacies</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/4162485/pexels-photo-4162485.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Fitness Centers</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/8423020/pexels-photo-8423020.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Educational Institutes</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/31091544/pexels-photo-31091544.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Manufacturing</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/18426842/pexels-photo-18426842.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Hotels</span></div>
+      <div class="industry-chip reveal" style="background-image: url('https://images.pexels.com/photos/19351562/pexels-photo-19351562.jpeg?auto=compress&cs=tinysrgb&w=600');"><span class="label">Event Organizers</span></div>
     </div>
   </section>
 
