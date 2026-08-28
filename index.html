@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
   <title>CloudeBase — Affordable Cloud Business Solutions for SMEs</title>
   <meta name="description" content="CloudeBase builds affordable cloud business solutions for Sri Lankan SMEs — SaaS products like ROMS and SLPOS, professional business websites, custom software, and Cloudflare-powered hosting.">
   <link rel="canonical" href="https://cloudebase.top/">
@@ -56,10 +56,17 @@
 
     html {
       scroll-behavior: smooth;
+      width: 100%;
+      max-width: 100%;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
 
     body {
       width: 100%;
+      max-width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
       overflow-x: hidden;
       font-family: var(--font-body);
       background: var(--bg);
@@ -1299,68 +1306,63 @@
       </div>
 
       <div class="dash-showcase">
-  <!-- Top floating badge -->
-  <div class="float-chip float-chip--a glass">
-    🚀 Deployed on Cloudflare
-  </div>
+        <!-- Top floating badge -->
+        <div class="float-chip float-chip--a glass">
+          🚀 Deployed on Cloudflare
+        </div>
 
-  <!-- Main Dashboard Card Container -->
-  <div class="dash-card glass glow-border">
-    <!-- Topbar -->
-    <div class="dash-card__topbar">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span class="dash-card__label">cloudebase dashboard</span>
-    </div>
+        <!-- Main Dashboard Card Container -->
+        <div class="dash-card glass glow-border">
+          <!-- Topbar -->
+          <div class="dash-card__topbar">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span class="dash-card__label">cloudebase dashboard</span>
+          </div>
 
-    <!-- Metrics -->
-    <div class="dash-metric-grid">
-      <div class="dash-metric">
-        <span class="label">ACTIVE SITES</span>
-        <span class="value">128</span>
-      </div>
-      <div class="dash-metric">
-        <span class="label">RESPONSE TIME</span>
-        <span class="value up">42ms</span>
-      </div>
-    </div>
+          <!-- Metrics -->
+          <div class="dash-metric-grid">
+            <div class="dash-metric">
+              <span class="label">ACTIVE SITES</span>
+              <span class="value">128</span>
+            </div>
+            <div class="dash-metric">
+              <span class="label">RESPONSE TIME</span>
+              <span class="value up">42ms</span>
+            </div>
+          </div>
 
-    <!-- Chart Bars -->
-    <div class="dash-bars">
-      <i style="height: 40%;"></i>
-      <i style="height: 65%;"></i>
-      <i style="height: 45%;"></i>
-      <i style="height: 80%;"></i>
-      <i style="height: 60%;"></i>
-      <i style="height: 95%;"></i>
-      <i style="height: 50%;"></i>
-      <i style="height: 85%;"></i>
-    </div>
+          <!-- Chart Bars -->
+          <div class="dash-bars">
+            <i style="height: 40%;"></i>
+            <i style="height: 65%;"></i>
+            <i style="height: 45%;"></i>
+            <i style="height: 80%;"></i>
+            <i style="height: 60%;"></i>
+            <i style="height: 95%;"></i>
+            <i style="height: 50%;"></i>
+            <i style="height: 85%;"></i>
+          </div>
 
-    <!-- Status Rows (MUST BE INSIDE DASH-CARD) -->
-    <div class="dash-row">
-      <span class="dot"></span>
-      <span>ROMS — order synced</span>
-    </div>
-    <div class="dash-row">
-      <span class="dot"></span>
-      <span>SLPOS — inventory updated</span>
-    </div>
-    <div class="dash-row">
-      <span class="dot"></span>
-      <span>Website deploy — success</span>
-    </div>
-  </div> <!-- Closing tag for dash-card -->
+          <!-- Status Rows (MUST BE INSIDE DASH-CARD) -->
+          <div class="dash-row">
+            <span class="dot"></span>
+            <span>ROMS — order synced</span>
+          </div>
+          <div class="dash-row">
+            <span class="dot"></span>
+            <span>SLPOS — inventory updated</span>
+          </div>
+          <div class="dash-row">
+            <span class="dot"></span>
+            <span>Website deploy — success</span>
+          </div>
+        </div>
 
-  <!-- Bottom floating badge -->
-  <div class="float-chip float-chip--b glass">
-    ✓ 99.9% Uptime
-  </div>
-</div>
-          <div class="dash-row"><span class="dot"></span> ROMS — order synced</div>
-          <div class="dash-row"><span class="dot"></span> SLPOS — inventory updated</div>
-          <div class="dash-row"><span class="dot"></span> Website deploy — success</div>
+        <!-- Bottom floating badge -->
+        <div class="float-chip float-chip--b glass">
+          ✓ 99.9% Uptime
         </div>
       </div>
     </div>
