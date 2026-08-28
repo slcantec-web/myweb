@@ -1299,28 +1299,65 @@
       </div>
 
       <div class="dash-showcase">
+  <!-- Top floating badge -->
+  <div class="float-chip float-chip--a glass">
+    🚀 Deployed on Cloudflare
+  </div>
+
+  <!-- Main Dashboard Card Container -->
   <div class="dash-card glass glow-border">
-    <!-- Floating chips placed inside .dash-card so position: absolute anchors to the card -->
-    <div class="float-chip glass float-chip--a">🚀 Deployed on Cloudflare</div>
-    <div class="float-chip glass float-chip--b">✓ 99.9% Uptime</div>
-
+    <!-- Topbar -->
     <div class="dash-card__topbar">
-      <span></span><span></span><span></span>
-      <span class="dash-card__label">cloudbase dashboard</span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span class="dash-card__label">cloudebase dashboard</span>
     </div>
 
+    <!-- Metrics -->
     <div class="dash-metric-grid">
-      <div class="dash-metric"><span class="label">Active Sites</span><span class="value">128</span></div>
-      <div class="dash-metric"><span class="label">Response Time</span><span class="value up">42ms</span></div>
+      <div class="dash-metric">
+        <span class="label">ACTIVE SITES</span>
+        <span class="value">128</span>
+      </div>
+      <div class="dash-metric">
+        <span class="label">RESPONSE TIME</span>
+        <span class="value up">42ms</span>
+      </div>
     </div>
 
-    <div class="dash-bars" aria-hidden="true">
-      <i style="height:35%"></i><i style="height:55%"></i><i style="height:40%"></i>
-      <i style="height:72%"></i><i style="height:60%"></i><i style="height:85%"></i>
-      <i style="height:50%"></i><i style="height:66%"></i>
+    <!-- Chart Bars -->
+    <div class="dash-bars">
+      <i style="height: 40%;"></i>
+      <i style="height: 65%;"></i>
+      <i style="height: 45%;"></i>
+      <i style="height: 80%;"></i>
+      <i style="height: 60%;"></i>
+      <i style="height: 95%;"></i>
+      <i style="height: 50%;"></i>
+      <i style="height: 85%;"></i>
     </div>
-  </div><!-- Closed .dash-card -->
-</div><!-- Closed .dash-showcase -->
+
+    <!-- Status Rows (MUST BE INSIDE DASH-CARD) -->
+    <div class="dash-row">
+      <span class="dot"></span>
+      <span>ROMS — order synced</span>
+    </div>
+    <div class="dash-row">
+      <span class="dot"></span>
+      <span>SLPOS — inventory updated</span>
+    </div>
+    <div class="dash-row">
+      <span class="dot"></span>
+      <span>Website deploy — success</span>
+    </div>
+  </div> <!-- Closing tag for dash-card -->
+
+  <!-- Bottom floating badge -->
+  <div class="float-chip float-chip--b glass">
+    ✓ 99.9% Uptime
+  </div>
+</div>
           <div class="dash-row"><span class="dot"></span> ROMS — order synced</div>
           <div class="dash-row"><span class="dot"></span> SLPOS — inventory updated</div>
           <div class="dash-row"><span class="dot"></span> Website deploy — success</div>
