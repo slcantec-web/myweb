@@ -578,7 +578,9 @@
     */
     .dash-showcase {
       position: relative;
-      min-height: 460px;
+      /* room above/below so float chips sit on the card border, not over content */
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
     .dash-card {
       position: relative;
@@ -683,16 +685,12 @@
       animation: floaty 6s ease-in-out infinite;
       white-space: nowrap;
     }
-    .float-chip--a { top: -18px; right: 10px; animation-delay: 0s; }
-    /*
-      FIX: moved from bottom:30px/left:-26px (overlapped the dash-card's
-      content) to fully below/outside the card so the floaty bounce
-      never crosses into the card's status rows.
-    */
-    .float-chip--b { bottom: -18px; left: -10px; animation-delay: 1.2s; }
+    /* Chips sit on the outer edges of the dashboard card */
+    .float-chip--a { top: 0; right: 12px; animation-delay: 0s; }
+    .float-chip--b { bottom: 0; left: 12px; animation-delay: 1.2s; }
     @keyframes floaty {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-8px); }
     }
 
     @media (max-width: 1024px) {
@@ -1263,6 +1261,51 @@
       html { scroll-behavior: auto; }
       .reveal, .float-chip, .whatsapp-float { transition: none; animation: none; }
     }
+
+    /* ===================================================
+       MOBILE / LOW-END PERFORMANCE
+       Heavy blur + continuous canvas animation is expensive
+       on budget phones. Tone them down without changing design.
+       =================================================== */
+    @media (max-width: 768px) {
+      .glass {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .navbar {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .aurora::before, .aurora::after {
+        filter: blur(40px);
+        opacity: 0.18;
+      }
+      .float-chip { animation: none; }
+      .scroll-indicator { animation: none; }
+      .opening-overlay, .opening-center { display: none !important; }
+    }
+
+    /* Very small / low-power: skip blur entirely (biggest scroll cost) */
+    @media (max-width: 480px) {
+      .glass {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(16, 24, 39, 0.92);
+      }
+      .navbar {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(16, 24, 39, 0.94);
+      }
+      .hero-btn--ghost { backdrop-filter: none; -webkit-backdrop-filter: none; }
+      .particles { display: none; }
+    }
+
+    /* Sections below the fold: skip layout/paint until near viewport */
+    #solutions, #saas, #websites, #why, #industries, #about, #process, #tech, #contact {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 800px;
+    }
   </style>
 </head>
 <body>
@@ -1811,41 +1854,50 @@
     });
 
     // ----- Particle network (decorative, canvas-based) -----
-    // Dots drift slowly; any two dots within LINK_DISTANCE get a line
-    // drawn between them, fading out as they get farther apart.
+    // Budget-phone friendly: fewer dots, capped DPR, pause when hero
+    // is off-screen or tab is hidden, skip O(n²) links on small screens.
     (function initParticleNetwork() {
       const canvas = document.getElementById('particles-canvas');
-      const ctx = canvas.getContext('2d');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
       const heroSection = canvas.closest('.hero') || canvas.parentElement.parentElement;
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isNarrow = () => window.innerWidth < 480;
 
-      const DOT_COLOR = '0, 229, 255';   // matches --accent, used as rgba()
-      const LINK_DISTANCE = 130;
+      // CSS already hides .particles under 480px; bail early if so.
+      if (isNarrow() || prefersReducedMotion) {
+        return;
+      }
+
+      const DOT_COLOR = '0, 229, 255';
+      const LINK_DISTANCE = 120;
       const DOT_RADIUS = 2;
-      const SPEED = 0.45;
-      const DRIFT = 0.02;   // per-frame random nudge so paths curve instead of going straight
-      const MAX_SPEED = 0.8;
-      const RESHUFFLE_INTERVAL = 90; // frames (~1.5s @60fps) between giving a few dots a fresh random kick
-      const RESHUFFLE_COUNT = 6;     // how many particles get re-kicked each interval
+      const SPEED = 0.4;
+      const DRIFT = 0.015;
+      const MAX_SPEED = 0.7;
+      const RESHUFFLE_INTERVAL = 120;
+      const RESHUFFLE_COUNT = 4;
 
       let width, height, dpr, particles, animId;
       let frameCount = 0;
+      let running = false;
+      let heroVisible = true;
 
       function particleCountFor(w) {
-        // Fewer particles on small screens so it stays light and uncluttered.
-        if (w < 480) return 22;
-        if (w < 900) return 40;
-        return 60;
+        if (w < 640) return 18;
+        if (w < 900) return 28;
+        return 42;
       }
 
       function resize() {
         const rect = heroSection.getBoundingClientRect();
-        dpr = window.devicePixelRatio || 1;
+        // Cap DPR — full retina canvas is expensive on mid-range phones
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         width = rect.width;
         height = rect.height;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
         canvas.style.width = width + 'px';
         canvas.style.height = height + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1862,13 +1914,10 @@
       }
 
       function step() {
+        if (!running) return;
         ctx.clearRect(0, 0, width, height);
 
-        // Move + draw dots
         for (const p of particles) {
-          // Tiny random nudges each frame make the path curve gently over
-          // time instead of bouncing back and forth in perfectly straight
-          // lines — reads as a slow, buttery drift.
           p.vx += (Math.random() - 0.5) * DRIFT;
           p.vy += (Math.random() - 0.5) * DRIFT;
 
@@ -1885,14 +1934,10 @@
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, DOT_RADIUS, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${DOT_COLOR}, 0.5)`;
+          ctx.fillStyle = 'rgba(' + DOT_COLOR + ', 0.5)';
           ctx.fill();
         }
 
-        // Every so often, give a handful of random particles a fresh
-        // random velocity kick. This is what actually makes different
-        // dots become neighbors over time — pure drift alone tends to
-        // keep the same particles clustered with the same neighbors.
         frameCount++;
         if (frameCount % RESHUFFLE_INTERVAL === 0) {
           for (let k = 0; k < RESHUFFLE_COUNT; k++) {
@@ -1902,26 +1947,23 @@
           }
         }
 
-        // Link distance "breathes" slightly over time, so connections
-        // right at the edge of range flicker in and out rather than the
-        // network looking perfectly static frame to frame.
-        const breathingLinkDistance =
-          LINK_DISTANCE + Math.sin(frameCount / 70) * 12;
-
-        // Draw links between nearby dots
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < breathingLinkDistance) {
-              const opacity = 0.18 * (1 - dist / breathingLinkDistance);
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.strokeStyle = `rgba(${DOT_COLOR}, ${opacity})`;
-              ctx.lineWidth = 1;
-              ctx.stroke();
+        // Skip expensive link pass on smaller tablets
+        if (width >= 700) {
+          const breathingLinkDistance = LINK_DISTANCE + Math.sin(frameCount / 70) * 10;
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const a = particles[i], b = particles[j];
+              const dx = a.x - b.x, dy = a.y - b.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < breathingLinkDistance) {
+                const opacity = 0.16 * (1 - dist / breathingLinkDistance);
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = 'rgba(' + DOT_COLOR + ', ' + opacity + ')';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+              }
             }
           }
         }
@@ -1929,25 +1971,51 @@
         animId = requestAnimationFrame(step);
       }
 
+      function start() {
+        if (running || document.hidden || !heroVisible) return;
+        running = true;
+        animId = requestAnimationFrame(step);
+      }
+
+      function stop() {
+        running = false;
+        if (animId) cancelAnimationFrame(animId);
+        animId = null;
+      }
+
       resize();
       makeParticles();
+      start();
 
-      if (prefersReducedMotion) {
-        // Draw a single static frame instead of animating continuously.
-        step();
-        cancelAnimationFrame(animId);
-      } else {
-        step();
+      // Pause when hero scrolls off-screen (biggest win while browsing rest of page)
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          heroVisible = entries[0].isIntersecting;
+          if (heroVisible) start();
+          else stop();
+        }, { threshold: 0.05 });
+        io.observe(heroSection);
       }
+
+      // Pause when tab is backgrounded
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else if (heroVisible) start();
+      });
 
       let resizeTimeout;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
+          if (isNarrow()) {
+            stop();
+            return;
+          }
           resize();
           makeParticles();
-        }, 150);
-      });
+          if (!running && heroVisible && !document.hidden) start();
+        }, 200);
+      }, { passive: true });
     })();
 
     // ----- Generic scroll-reveal for cards -----
