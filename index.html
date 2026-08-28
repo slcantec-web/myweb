@@ -559,9 +559,19 @@
     }
 
     /* ---- dashboard showcase panel (signature hero element) ---- */
+    /*
+      FIX (2026-08): the float chips are positioned relative to this
+      wrapper, not the card itself. Because .dash-card has no fixed
+      height (it grows with its metric grid + bars + status rows),
+      float-chip--b's old `bottom: 30px` landed *inside* the card's
+      lower half instead of below it, so the "99.9% Uptime" chip
+      visually collided with the last status row. Raising this
+      wrapper's min-height and pushing the chip further outside the
+      card's bounding box (see .float-chip--b below) clears it fully.
+    */
     .dash-showcase {
       position: relative;
-      min-height: 420px;
+      min-height: 460px;
     }
     .dash-card {
       position: relative;
@@ -655,9 +665,15 @@
       color: var(--text);
       box-shadow: 0 14px 30px rgba(0,0,0,0.4);
       animation: floaty 6s ease-in-out infinite;
+      white-space: nowrap;
     }
     .float-chip--a { top: -18px; right: 10px; animation-delay: 0s; }
-    .float-chip--b { bottom: 30px; left: -26px; animation-delay: 1.2s; }
+    /*
+      FIX: moved from bottom:30px/left:-26px (overlapped the dash-card's
+      content) to fully below/outside the card so the floaty bounce
+      never crosses into the card's status rows.
+    */
+    .float-chip--b { bottom: -18px; left: -10px; animation-delay: 1.2s; }
     @keyframes floaty {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
