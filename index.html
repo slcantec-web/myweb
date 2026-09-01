@@ -431,13 +431,30 @@
       min-height: 100svh;
       display: flex;
       align-items: center;
-      background: radial-gradient(1200px 700px at 80% -10%, rgba(91,140,255,0.16), transparent 60%),
+      background:
+                  radial-gradient(1200px 700px at 80% -10%, rgba(91,140,255,0.16), transparent 60%),
                   radial-gradient(900px 600px at 5% 90%, rgba(0,229,255,0.10), transparent 60%),
-                  var(--bg);
+                  radial-gradient(1400px 900px at 50% 30%, rgba(124, 92, 255, 0.14), transparent 65%),
+                  linear-gradient(180deg, #05060d 0%, #070b14 55%, var(--bg) 100%);
       padding: 150px 24px 90px;
       position: relative;
       overflow: hidden;
       width: 100%;
+    }
+
+    /* Blend the very bottom of the hero (glow/particles/stars) smoothly
+       into the flat body background of the next section, so there's no
+       visible seam at the hero's boundary. */
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 280px;
+      background: linear-gradient(180deg, transparent 0%, var(--bg) 85%);
+      pointer-events: none;
+      z-index: 3;
     }
 
     .particles {
@@ -449,11 +466,48 @@
       z-index: 0;
     }
 
-    #particles-canvas {
+    #particles-canvas, #stars-canvas {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       display: block;
+    }
+
+    /* ---- Shooting / falling stars — thin bright streaks crossing the hero ---- */
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 6px 1px rgba(255,255,255,0.9);
+      opacity: 0;
+      z-index: 1;
+      animation: shooting-star-fall linear infinite;
+      pointer-events: none;
+    }
+    .shooting-star::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9));
+      transform-origin: 100% 50%;
+      transform: translateY(-50%) rotate(142.7deg);
+    }
+    @keyframes shooting-star-fall {
+      0%   { transform: translate(0, 0); opacity: 0; }
+      4%   { opacity: 1; }
+      18%  { transform: translate(-420px, 320px); opacity: 0; }
+      100% { transform: translate(-420px, 320px); opacity: 0; }
+    }
+    @media (max-width: 768px) {
+      .shooting-star { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .shooting-star { animation: none; display: none; }
     }
 
     .hero-grid {
@@ -1344,7 +1398,15 @@
   <section class="hero" id="hero">
     <div class="particles">
       <canvas id="particles-canvas"></canvas>
+      <canvas id="stars-canvas"></canvas>
     </div>
+
+    <!-- Shooting stars: staggered positions/timing so they never sync -->
+    <div class="shooting-star" style="top: 8%;  left: 70%; animation-duration: 6s;  animation-delay: 0.5s;"></div>
+    <div class="shooting-star" style="top: 18%; left: 85%; animation-duration: 8s;  animation-delay: 3s;"></div>
+    <div class="shooting-star" style="top: 30%; left: 55%; animation-duration: 7s;  animation-delay: 5.5s;"></div>
+    <div class="shooting-star" style="top: 4%;  left: 40%; animation-duration: 9s;  animation-delay: 2s;"></div>
+
     <div class="hero-grid">
       <div class="hero-content">
         <span class="hero-eyebrow">Cloud Solutions for SMEs</span>
@@ -2014,6 +2076,124 @@
           resize();
           makeParticles();
           if (!running && heroVisible && !document.hidden) start();
+        }, 200);
+      }, { passive: true });
+    })();
+
+    // ----- Starfield (decorative, canvas-based) -----
+    // Soft twinkling stars behind the particle network to sell the
+    // "universe" background. Same pause/resize discipline as the
+    // particle network above so it never costs anything off-screen.
+    (function initStarfield() {
+      const canvas = document.getElementById('stars-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      const heroSection = canvas.closest('.hero') || canvas.parentElement.parentElement;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let width, height, dpr, stars;
+      let running = false;
+      let heroVisible = true;
+      let animId;
+
+      function starCountFor(w) {
+        if (w < 480) return 0;
+        if (w < 640) return 60;
+        if (w < 900) return 100;
+        return 160;
+      }
+
+      function resize() {
+        const rect = heroSection.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        width = rect.width;
+        height = rect.height;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function makeStars() {
+        const count = starCountFor(width);
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.4 + 0.3,
+          baseAlpha: Math.random() * 0.5 + 0.3,
+          twinkleSpeed: Math.random() * 0.002 + 0.0006,
+          phase: Math.random() * Math.PI * 2,
+        }));
+      }
+
+      function drawStatic() {
+        ctx.clearRect(0, 0, width, height);
+        for (const s of stars) {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,' + s.baseAlpha + ')';
+          ctx.fill();
+        }
+      }
+
+      function draw(time) {
+        if (!running) return;
+        ctx.clearRect(0, 0, width, height);
+        for (const s of stars) {
+          const alpha = s.baseAlpha + Math.sin(time * s.twinkleSpeed + s.phase) * 0.3;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,' + Math.max(0, alpha) + ')';
+          ctx.fill();
+        }
+        animId = requestAnimationFrame(draw);
+      }
+
+      function start() {
+        if (running || document.hidden || !heroVisible || prefersReducedMotion || !stars.length) return;
+        running = true;
+        animId = requestAnimationFrame(draw);
+      }
+      function stop() {
+        running = false;
+        if (animId) cancelAnimationFrame(animId);
+        animId = null;
+      }
+
+      resize();
+      makeStars();
+      if (prefersReducedMotion) {
+        drawStatic();
+      } else {
+        start();
+      }
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          heroVisible = entries[0].isIntersecting;
+          if (heroVisible) start();
+          else stop();
+        }, { threshold: 0.05 });
+        io.observe(heroSection);
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else if (heroVisible) start();
+      });
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          resize();
+          makeStars();
+          if (prefersReducedMotion) {
+            drawStatic();
+          } else if (!running && heroVisible && !document.hidden) {
+            start();
+          }
         }, 200);
       }, { passive: true });
     })();
