@@ -677,60 +677,131 @@
       background: transparent;
       opacity: 1;
     }
-    .dash-metric-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-    .dash-metric {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
+    /* ---- "building your site" showcase (wireframe <-> live layout crossfade) ----
+       Replaces the earlier fake usage-metrics dashboard, since this is a new
+       site with no real client stats to display yet. */
+    .build-canvas {
+      position: relative;
+      height: 190px;
       border-radius: 12px;
-      padding: 14px 16px;
-    }
-    .dash-metric span.label {
-      display: block;
-      font-size: 11px;
-      color: var(--muted-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-    .dash-metric span.value {
-      font-family: var(--font-display);
-      font-size: 21px;
-      color: var(--text);
-    }
-    .dash-metric span.value.up { color: var(--success); }
-    .dash-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 80px;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.03);
       border: 1px solid var(--line);
-      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
       margin-bottom: 16px;
     }
-    .dash-bars i {
-      flex: 1;
-      border-radius: 4px 4px 0 0;
-      background: linear-gradient(180deg, var(--accent), var(--primary));
-      opacity: 0.85;
+    .build-skeleton,
+    .build-final {
+      position: absolute;
+      inset: 0;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: build-cross 7s ease-in-out infinite;
     }
-    .dash-row {
+    .build-final { animation-delay: -3.5s; }
+    @keyframes build-cross {
+      0%   { opacity: 0; }
+      8%   { opacity: 1; }
+      42%  { opacity: 1; }
+      50%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .bp-line {
+      height: 13px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.15) 37%, rgba(255,255,255,0.06) 63%);
+      background-size: 400% 100%;
+      animation: build-shimmer 2.2s ease-in-out infinite;
+    }
+    .bp-line--title { width: 55%; }
+    .bp-line--sub { width: 36%; }
+    .bp-blocks { display: flex; gap: 10px; flex: 1; margin-top: 2px; }
+    .bp-blocks span {
+      flex: 1;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.13) 37%, rgba(255,255,255,0.05) 63%);
+      background-size: 400% 100%;
+      animation: build-shimmer 2.2s ease-in-out infinite;
+    }
+    @keyframes build-shimmer {
+      0%   { background-position: 100% 0; }
+      100% { background-position: 0 0; }
+    }
+
+    .bp-final-hero {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(91,140,255,0.16), rgba(0,229,255,0.06));
+      border: 1px solid var(--line);
+    }
+    .bp-final-title {
+      width: 68%; height: 11px; border-radius: 4px; margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--primary-soft), var(--accent));
+    }
+    .bp-final-text {
+      width: 88%; height: 7px; border-radius: 4px; margin-bottom: 12px;
+      background: rgba(255,255,255,0.16);
+    }
+    .bp-final-btn {
+      width: 64px; height: 18px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+    .bp-final-cards { display: flex; gap: 8px; flex: 1; }
+    .bp-final-cards span {
+      flex: 1; border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+    }
+
+    .build-status {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 12.5px;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
       color: var(--muted);
-      padding: 8px 0;
-      border-top: 1px solid var(--line);
     }
-    .dash-row:first-of-type { border-top: none; }
-    .dash-row .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); flex-shrink: 0; box-shadow: 0 0 6px 1px rgba(52,211,153,0.6); }
+    .build-status__dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 6px 1px rgba(52,211,153,0.6);
+      flex-shrink: 0;
+    }
+    .build-status__texts { position: relative; flex: 1; height: 16px; min-width: 0; }
+    .build-status__text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(4px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      animation: build-status-cycle 8s ease-in-out infinite;
+    }
+    .build-status__text--1 { animation-delay: 0s; }
+    .build-status__text--2 { animation-delay: -2s; }
+    .build-status__text--3 { animation-delay: -4s; }
+    .build-status__text--4 { animation-delay: -6s; }
+    @keyframes build-status-cycle {
+      0%   { opacity: 0; transform: translateY(4px); }
+      4%   { opacity: 1; transform: translateY(0); }
+      21%  { opacity: 1; transform: translateY(0); }
+      25%  { opacity: 0; transform: translateY(-4px); }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .build-skeleton, .build-final, .bp-line, .bp-blocks span, .build-status__text {
+        animation: none;
+      }
+      .build-skeleton { opacity: 0; }
+      .build-final { opacity: 1; }
+      .build-status__text { opacity: 0; }
+      .build-status__text--1 { opacity: 1; }
+    }
 
     .float-chip {
       position: absolute;
@@ -1436,58 +1507,53 @@
           🚀 Deployed on Cloudflare
         </div>
 
-        <!-- Main Dashboard Card Container -->
+        <!-- Main Card Container: wireframe crossfades into a live layout on
+             loop — no fake usage stats, since this is a brand-new site. -->
         <div class="dash-card glass glow-border">
           <!-- Topbar -->
           <div class="dash-card__topbar">
             <span></span>
             <span></span>
             <span></span>
-            <span class="dash-card__label">cloudebase dashboard</span>
+            <span class="dash-card__label">yourbusiness.com</span>
           </div>
 
-          <!-- Metrics -->
-          <div class="dash-metric-grid">
-            <div class="dash-metric">
-              <span class="label">ACTIVE SITES</span>
-              <span class="value">128</span>
+          <!-- Wireframe <-> live layout crossfade -->
+          <div class="build-canvas">
+            <div class="build-skeleton">
+              <div class="bp-line bp-line--title"></div>
+              <div class="bp-line bp-line--sub"></div>
+              <div class="bp-blocks">
+                <span></span><span></span><span></span>
+              </div>
             </div>
-            <div class="dash-metric">
-              <span class="label">RESPONSE TIME</span>
-              <span class="value up">42ms</span>
+            <div class="build-final">
+              <div class="bp-final-hero">
+                <div class="bp-final-title"></div>
+                <div class="bp-final-text"></div>
+                <div class="bp-final-btn"></div>
+              </div>
+              <div class="bp-final-cards">
+                <span></span><span></span><span></span>
+              </div>
             </div>
           </div>
 
-          <!-- Chart Bars -->
-          <div class="dash-bars">
-            <i style="height: 40%;"></i>
-            <i style="height: 65%;"></i>
-            <i style="height: 45%;"></i>
-            <i style="height: 80%;"></i>
-            <i style="height: 60%;"></i>
-            <i style="height: 95%;"></i>
-            <i style="height: 50%;"></i>
-            <i style="height: 85%;"></i>
-          </div>
-
-          <!-- Status Rows (MUST BE INSIDE DASH-CARD) -->
-          <div class="dash-row">
-            <span class="dot"></span>
-            <span>ROMS — order synced</span>
-          </div>
-          <div class="dash-row">
-            <span class="dot"></span>
-            <span>SLPOS — inventory updated</span>
-          </div>
-          <div class="dash-row">
-            <span class="dot"></span>
-            <span>Website deploy — success</span>
+          <!-- Build status line -->
+          <div class="build-status">
+            <span class="build-status__dot"></span>
+            <span class="build-status__texts">
+              <span class="build-status__text build-status__text--1">Designing the layout…</span>
+              <span class="build-status__text build-status__text--2">Fine-tuning for mobile…</span>
+              <span class="build-status__text build-status__text--3">Deploying to the edge…</span>
+              <span class="build-status__text build-status__text--4">Your site is live 🚀</span>
+            </span>
           </div>
         </div>
 
         <!-- Bottom floating badge -->
         <div class="float-chip float-chip--b glass">
-          ✓ 99.9% Uptime
+          🎨 Designed For You
         </div>
       </div>
     </div>
